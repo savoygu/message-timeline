@@ -18,16 +18,18 @@
     }
 
     @e box {
-      float: left;
+      position: relative;
+      left: 0;
       width: 50%;
+      /*float: left;*/
       padding-right: 4rem;
       padding-bottom: 1.25rem;
       box-sizing: border-box;
 
-      @when right {
-        padding-right: 0;
-        left: 50%;
-        padding-left: 4rem;
+      &:nth-child(2n) {
+         padding-right: 0;
+         left: 50%;
+         padding-left: 4rem;
 
         .tm-timeline__message {
 
@@ -37,7 +39,7 @@
              top: 3rem;
              left: -2rem;
              triangle: 1rem left white;
-           }
+          }
 
           &:after {
              content: "";
@@ -130,13 +132,13 @@
       @e box {
         padding-right: 2.5rem;
 
-        @when right {
+        &:nth-child(2n) {
           padding-left: 2.5rem;
 
           .tm-timeline__message {
 
             &:after {
-               left: -2.785rem;
+              left: -2.785rem;
             }
           }
         }
@@ -165,7 +167,7 @@
         width: 100%;
         padding-right: 0;
 
-        @when right {
+        &:nth-child(2n) {
           left: 0;
           padding-left: 0;
 
@@ -173,7 +175,7 @@
 
             &:before,
             &:after {
-               display: none;
+              display: none;
             }
           }
         }
