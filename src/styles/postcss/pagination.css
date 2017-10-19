@@ -31,11 +31,13 @@
         border-color: #6bc30d;
         color: white;
         cursor: default;
+        box-shadow: none;
       }
 
       @when disabled {
         cursor: not-allowed;
         opacity: .75;
+        box-shadow: none;
       }
     }
 

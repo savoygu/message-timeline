@@ -1,14 +1,22 @@
 <template>
   <div class="tm-message">
-    <publish></publish>
-    <timeline></timeline>
-    <div class="tm-message__pagination">
-      <pagination :page-count="pageCount" :current-page="currentPage" @change="handlePageChange"></pagination>
+    <publish :page-total="pageTotal"></publish>
+    <template v-if="!loading">
+      <timeline :messages="messages" :page-total="pageTotal"
+                :current-page="currentPage"></timeline>
+      <div class="tm-message__pagination">
+        <pagination :page-count="pageCount" :current-page="currentPage" @change="handlePageChange"></pagination>
+      </div>
+    </template>
+    <div v-else class="tm-message__loading">
+      <dw-loading :loading="effect"></dw-loading>
     </div>
   </div>
 </template>
 
 <script>
+  import {fetch} from '@/http'
+  import Loading from './loading.vue'
   import Publish from './message/publish.vue'
   import Timeline from './message/timeline.vue'
   import Pagination from './message/pagination.vue'
@@ -19,68 +27,52 @@
     components: {
       Publish,
       Timeline,
-      Pagination
+      Pagination,
+      'dw-loading': Loading
     },
 
     data () {
       return {
-        pageCount: 10,
-        currentPage: 3
+        pageCount: 0,
+        currentPage: 1,
+        pageTotal: 0,
+        messages: [],
+        loading: false,
+        effect: Math.ceil(Math.random() * 10)
       }
     },
 
     methods: {
       handlePageChange (page) {
         this.currentPage = page
+        this.getMessages()
+      },
+
+      getMessages () {
+        this.loading = true
+        fetch('/api/comment/message', {
+          limit: 32,
+          page: this.currentPage
+        }).then(res => {
+          this.loading = false
+          if (res.code === 200) {
+            this.pageTotal = res.data.count
+            this.messages = res.data.list
+            this.pageCount = Math.ceil(this.pageTotal / 32)
+            this.$nextTick(_ => {
+              this.$children.filter(_ => _.$options.name === 'TmTimeline')[0].waterfall()
+            })
+          }
+        })
       }
+    },
+
+    mounted () {
+      this.getMessages()
     }
   }
 </script>
 
 <style lang="postcss">
-  @component-namespace tm {
-
-    @b message {
-      position: relative;
-      max-width: 80rem;
-      min-width: 20rem;
-      margin-right: auto;
-      margin-left: auto;
-      padding-right: 1rem;
-      padding-left: 1rem;
-      box-sizing: border-box;
-
-      @e pagination {
-        margin: 1rem 0;
-        text-align: center;
-      }
-    }
-  }
-
-  @media (max-width: 85.375rem) {
-    @component-namespace tm {
-
-      @b message {
-        max-width:71.25rem
-      }
-    }
-  }
-
-  @media (max-width: 64rem) {
-    @component-namespace tm {
-
-      @b message {
-        max-width:53.75rem
-      }
-    }
-  }
-
-  @media (max-width: 55rem) {
-    @component-namespace tm {
-
-      @b message {
-        max-width:43.125rem
-      }
-    }
-  }
+  @import "../styles/postcss/message.css";
 </style>
