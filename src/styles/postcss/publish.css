@@ -1,7 +1,23 @@
 @component-namespace tm {
 
   @b publish {
+    position: relative;
     background-color: white;
+
+    @e alert {
+      position: absolute;
+      top: -2rem;
+      width: 100%;
+      height: 2rem;
+      line-height: 2rem;
+      text-align: center;
+      color: #a94442;
+      background-color: #f2dede;
+      border-color: #ebccd1;
+      border-radius: 4px;
+      box-sizing: border-box;
+      transition: all .3s;
+    }
 
     @e header {
       position: relative;
