@@ -101,6 +101,14 @@
 
     @e content {
       margin: 1rem 0;
+
+      img {
+        display: inline;
+        margin: 0 .3125rem;
+        min-height: 1.25rem;
+        vertical-align: middle;
+        border: none;
+      }
     }
 
     @e position {

@@ -9,7 +9,7 @@
             class="time-timeline__time">刚刚</span>
           </div>
         </h5>
-        <div class="tm-timeline__content">{{message.contents}}</div>
+        <div class="tm-timeline__content" v-html="message.contents"></div>
         <p class="tm-timeline__position">
           <span
             class="tm-timeline__city">{{ message.location ? (message.location.province + (message.location.province === message.location.city ? '' : ' · ' + message.location.city)) : ''}}</span>
@@ -26,80 +26,7 @@
 </template>
 
 <script>
-  function on (element, event, handler) {
-    if (element && event && handler) {
-      element.addEventListener
-        ? element.addEventListener(event, handler, false)
-        : element.attachEvent('on' + event, handler)
-    }
-  }
-
-  function off (element, event, handler) {
-    if (element && event) {
-      element.removeEventListener
-        ? element.removeEventListener(event, handler, false)
-        : element.detachEvent('on' + event, handler)
-    }
-  }
-
-  function hasClass (el, cls) {
-    if (!el || !cls) return false
-    if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.')
-    if (el.classList) {
-      return el.classList.contains(cls)
-    } else {
-      return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') > -1
-    }
-  }
-
-  function addClass (el, cls) {
-    if (!el) return
-    var curClass = el.className
-    var classes = (cls || '').split(' ')
-
-    for (var i = 0, len = classes.length; i < len; i++) {
-      var clsName = classes[i]
-      if (!clsName) continue
-
-      if (el.classList) { // IE9+
-        el.classList.add(clsName)
-      } else {
-        if (!hasClass(el, clsName)) {
-          curClass += ' ' + clsName
-        }
-      }
-    }
-    if (!el.classList) {
-      el.className = curClass
-    }
-  }
-
-  function trim (string) {
-    return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
-  }
-
-  /* eslint-disable no-unused-vars */
-  function removeClass (el, cls) {
-    if (!el || !cls) return
-    var classes = cls.split(' ')
-    var curClass = ' ' + el.className + ' '
-
-    for (var i = 0, len = classes.length; i < len; i++) {
-      var clsName = classes[i]
-      if (!clsName) return
-
-      if (el.classList) {
-        el.classList.remove(clsName)
-      } else {
-        if (hasClass(el, clsName)) {
-          curClass = curClass.replace(' ' + clsName + ' ', ' ')
-        }
-      }
-    }
-    if (!el.classList) {
-      el.className = trim(curClass)
-    }
-  }
+  import { off, on, addClass, removeClass } from '@/utils/dom'
 
   export default {
     name: 'TmTimeline',

@@ -1,6 +1,6 @@
 # timeline-vue
 
-> 留言时间轴，记录时光���
+> 基于 Vue 的时间轴组件，记录美好时光。
 
 ## Build Setup
 

@@ -12,6 +12,7 @@
 
 <style lang="postcss">
   @import './styles/postcss/index.css';
+  @import './styles/tipsy.css';
   @reset-global pc;
 
   html,
