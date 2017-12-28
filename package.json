@@ -1,7 +1,7 @@
 {
   "name": "timeline-vue",
   "version": "1.0.0",
-  "description": "留言时间轴，记录时光���",
+  "description": "留言时间轴，记录时光",
   "author": "savoygu@163.com",
   "private": true,
   "scripts": {

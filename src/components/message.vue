@@ -88,7 +88,8 @@
             this.pageTotal = res.data.count
             this.messages = res.data.list.map(item => {
               item.contents = item.contents.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
-                return `<img src="${'//img.smohan.net/app/emoji/q/' + EMOJI.filter(emoji => emoji.meaning === p)[0].expression}" title=${p} alt=${p}>`
+                let expression = EMOJI.filter(emoji => emoji.meaning === p)[0].expression
+                return `<img src=${'//img.smohan.net/app/emoji/q/' + expression} title=${p} alt=${p}>`
               })
               return item
             })
