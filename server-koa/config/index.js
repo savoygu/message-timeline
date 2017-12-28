@@ -1,6 +1,6 @@
 const config = {
   appName: 'timeline-koa2',
-  host: 'localhost',
+  host: '127.0.0.1',
   port: 3001,
   database: {
     host: 'localhost',

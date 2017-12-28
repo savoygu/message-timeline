@@ -10,6 +10,8 @@ const config = require('./config')
 
 const app = new Koa()
 
+app.proxy = true
+
 app.use(convert(bodyparser()))
 app.use(convert(compress()))
 app.use(convert(cors()))

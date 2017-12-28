@@ -5,6 +5,7 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 // Vue.axios.defaults.baseURL = 'https://smohan.net/api/'
+Vue.axios.defaults.baseURL = 'http://localhost:3001/api/v1'
 
 export default axios
 

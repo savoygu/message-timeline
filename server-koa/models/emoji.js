@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-var EmojiSchema = new Schema({
+const EmojiSchema = new Schema({
   expression: {type: String, trim: true},
   meaning: {type: String, trim: true}
 })

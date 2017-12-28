@@ -28,7 +28,7 @@
               placeholder="电子邮箱">
           </label>
           <label class="tm-publish__field">
-            <button class="tm-publish__btn" :class="{ 'is-disabled': isDisabled}">发布</button>
+            <button class="tm-publish__btn" :class="{ 'is-disabled': isDisabled}" @click="publishMessage">发布</button>
           </label>
         </div>
       </div>
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { post } from '@/http'
+
 export default {
   name: 'TmPublish',
 
@@ -48,8 +50,7 @@ export default {
     return {
       content: '',
       nickname: '',
-      email: '',
-      dirty: false
+      email: ''
     }
   },
 
@@ -71,6 +72,16 @@ export default {
     validateEmail (val) {
       if (!val) return '电子邮箱不能为空'
       if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(val)) return '电子邮箱格式不正确'
+    },
+
+    publishMessage () {
+      post('/message', {
+        nickname: this.nickname,
+        content: this.content,
+        email: this.email
+      }).then(res => {
+        console.log(res)
+      })
     }
   }
 }

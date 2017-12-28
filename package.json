@@ -8,10 +8,13 @@
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "server": "node server-koa/app.js",
+    "grunt": "grunt server-koa/gruntfile.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "request": "^2.83.0",
     "vue": "^2.4.2",
     "vue-axios": "^2.0.2",
     "vue-router": "^2.7.0"

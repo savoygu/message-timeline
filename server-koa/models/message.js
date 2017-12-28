@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-var MessageSchema = new Schema({
-  nick: {type: String, trim: true},
-  contents: {type: String, trim: true},
+const MessageSchema = new Schema({
+  nickname: {type: String, trim: true},
+  content: {type: String, trim: true},
   email: {type: String, trim: true},
   location: {
     ip: {type: String, trim: true},

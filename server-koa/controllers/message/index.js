@@ -1,29 +1,9 @@
+const proxyaddr = require('proxy-addr')
 const message = require('../../models/message')
 const _service = require('../../service')
+const { getIpInfo } = require('../../service/location')
 
 module.exports = {
-  addMessage: async (ctx) => {
-    let body = {code: '01', result: ''}
-    try {
-      let nick = ctx.request.body.nick || ctx.request.query.nick
-      let contents = ctx.request.body.contents || ctx.request.query.contents
-      let email = ctx.request.body.email || ctx.request.query.email
-      console.log(ctx)
-      let messageModel = {
-        nick,
-        contents,
-        email
-      }
-      let result = await _service.create(message, messageModel)
-      body.result = result
-    } catch (e) {
-      body.code = '02'
-      body.result = e.message
-    } finally {
-      ctx.body = body
-    }
-  },
-
   getMessages: async (ctx) => {
     let body = {code: '01', result: ''}
     try {
@@ -44,7 +24,36 @@ module.exports = {
     }
   },
 
-  replyMessage: async (ctx) => {
+  findMessage: async (ctx) => {},
 
-  }
+  addMessage: async (ctx) => {
+    let body = {code: '01', result: ''}
+    try {
+      let nickname = ctx.request.body.nickname || ctx.request.query.nickname
+      let content = ctx.request.body.content || ctx.request.query.content
+      let email = ctx.request.body.email || ctx.request.query.email
+      console.log(nickname, content, email)
+      console.log(proxyaddr.all(ctx.req))
+      // let location = await getIpInfo()
+
+      // let messageModel = {
+      //   nick,
+      //   contents,
+      //   email
+      // }
+      // let result = await _service.create(message, messageModel)
+      // body.result = result
+    } catch (e) {
+      body.code = '02'
+      body.result = e.message
+    } finally {
+      ctx.body = body
+    }
+  },
+
+  updateMessage: async (ctx) => {},
+
+  destoryMessage: async (ctx) => {},
+
+  replyMessage: async (ctx) => {}
 }
