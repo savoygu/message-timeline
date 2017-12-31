@@ -3,13 +3,13 @@
     <div class="tm-timeline__box" v-for="(message, index) in messages" :key="index">
       <div class="tm-timeline__message">
         <h5 class="tm-timeline__title">
-          <strong class="tm-timeline__nickname">{{message.nick}}</strong>
+          <strong class="tm-timeline__nickname">{{message.nickname}}</strong>
           <div class="tm-timeline__info">
             <span class="tm-timeline__floor">{{(pageTotal - (currentPage - 1) * 32) - index}}楼</span>&ensp;|&ensp;<span
             class="time-timeline__time">刚刚</span>
           </div>
         </h5>
-        <div class="tm-timeline__content" v-html="message.contents"></div>
+        <div class="tm-timeline__content" v-html="message.content"></div>
         <p class="tm-timeline__position">
           <span
             class="tm-timeline__city">{{ message.location ? (message.location.province + (message.location.province === message.location.city ? '' : ' · ' + message.location.city)) : ''}}</span>

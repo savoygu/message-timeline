@@ -6,8 +6,12 @@ const _location = module.exports = {}
 
 _location.getLocationInfo = function (ip) {
   return new Promise(function (resolve, reject) {
-    request.get(URL + ip).then(function (response) {
-      resolve(response.body)
+    request({url: URL + ip, json: true}, function (err, res, body) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(body)
+      }
     })
   })
 }
@@ -15,13 +19,14 @@ _location.getLocationInfo = function (ip) {
 _location.getIp = function () {
   return new Promise(function (resolve, reject) {
     superagent
-      .get('http://ip.cn/')
+      .get('http://www.ip.cn/')
       .set('User-Agent', 'curl/7.31.1')
       .end(function (err, res) {
         if (err) {
           reject(err)
         } else {
-          resolve(res)
+          const ip = res.text.match(/\d+\.\d+\.\d+\.\d+/)[0]
+          resolve(ip)
         }
       })
   })

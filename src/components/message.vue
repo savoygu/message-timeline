@@ -79,15 +79,16 @@
 
       getMessages () {
         this.loading = true
-        fetch('/api/comment/message', {
-          limit: 32,
-          page: this.currentPage
+        fetch('/messages', {
+          page_size: 32,
+          current: this.currentPage
         }).then(res => {
           this.loading = false
-          if (res.code === 200) {
-            this.pageTotal = res.data.count
-            this.messages = res.data.list.map(item => {
-              item.contents = item.contents.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
+          console.log(res.result)
+          if (res.code === '01') {
+            this.pageTotal = res.result.count
+            this.messages = res.result.rows.map(item => {
+              item.content = item.content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
                 let expression = EMOJI.filter(emoji => emoji.meaning === p)[0].expression
                 return `<img src=${'//img.smohan.net/app/emoji/q/' + expression} title=${p} alt=${p}>`
               })
