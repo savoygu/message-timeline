@@ -33,11 +33,13 @@
         </div>
       </div>
     </div>
+    <toast ref="tip" :text="isDisabled" :show="show" :duration="2000"></toast>
   </div>
 </template>
 
 <script>
 import { post } from '@/http'
+import Toast from '../toast.vue'
 
 export default {
   name: 'TmPublish',
@@ -46,17 +48,24 @@ export default {
     pageTotal: Number
   },
 
+  components: {
+    Toast
+  },
+
   data () {
     return {
       content: '',
       nickname: '',
-      email: ''
+      email: '',
+      show: false
     }
   },
 
   computed: {
     isDisabled () {
-      return this.validateContent(this.content) || this.validateNickname(this.nickname) || this.validateEmail(this.email)
+      return this.validateContent(this.content) ||
+        this.validateNickname(this.nickname) ||
+        this.validateEmail(this.email) || ''
     }
   },
 
@@ -75,7 +84,10 @@ export default {
     },
 
     publishMessage () {
-      if (this.isDisabled) return
+      if (this.isDisabled) {
+        this.$refs.tip.open()
+        return
+      }
       post('/message', {
         nickname: this.nickname,
         content: this.content,
