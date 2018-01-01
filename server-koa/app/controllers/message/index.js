@@ -1,21 +1,14 @@
 const gravatar = require('gravatar')
 const message = require('../../models/message')
 const _service = require('../../service')
+const { getMessages } = require('../../service/message')
 const { getLocationInfo, getIp } = require('../../service/location')
 
 module.exports = {
   getMessages: async (ctx) => {
     let body = {code: '01', result: ''}
     try {
-      let current = ctx.request.body.current || ctx.request.query.current || 1
-      let page_size = ctx.request.body.page_size || ctx.request.query.page_size || 32
-      let options = {
-        current,
-        page_size,
-        sort: '-createTime',
-        find_con: {}
-      }
-      let result = await _service.findAndCountAll(message, options)
+      const result = await getMessages(ctx)
       body.result = result
     } catch (e) {
       body.code = '02'
@@ -24,8 +17,6 @@ module.exports = {
       ctx.body = body
     }
   },
-
-  findMessage: async (ctx) => {},
 
   addMessage: async (ctx) => {
     let body = {code: '01', result: ''}
@@ -67,11 +58,5 @@ module.exports = {
     } finally {
       ctx.body = body
     }
-  },
-
-  updateMessage: async (ctx) => {},
-
-  destoryMessage: async (ctx) => {},
-
-  replyMessage: async (ctx) => {}
+  }
 }

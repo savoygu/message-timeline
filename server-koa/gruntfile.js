@@ -1,15 +1,23 @@
 module.exports = function (grunt) {
-
   grunt.initConfig({
     watch: {
+      pug: {
+        files: ['app/views/**'],
+        options: {
+          nospawn: true,
+          interrupt: false,
+          debounceDelay: 250,
+          livereload: true
+        }
+      },
       js: {
         files: ['**/*.js'],
         // tasks: ['jshint'],
         options: {
           nospawn: true,
           interrupt: false,
-          debounceDelay: 250
-          // livereload: true
+          debounceDelay: 250,
+          livereload: true
         }
       }
     },
@@ -20,7 +28,7 @@ module.exports = function (grunt) {
           file: 'app.js',
           args: [],
           ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
-          watchedExtensions: ['js'],
+          watchedExtensions: ['js', 'pug'],
           watchFolders: ['./'],
           debug: true,
           delayTime: 1,

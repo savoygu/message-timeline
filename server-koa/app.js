@@ -1,3 +1,4 @@
+const path = require('path')
 const Koa = require('koa')
 const cors = require('koa-cors') // 跨域处理
 const bodyparser = require('koa-bodyparser') // 传参获取
@@ -5,11 +6,23 @@ const compress = require('koa-compress') // 传输压缩
 const mount = require('koa-mount') // 路由挂载
 const convert = require('koa-convert') // 封装中间件
 const mongoose = require('mongoose')
+const Pug = require('koa-pug')
+const serve = require('koa-static')
+const moment = require('moment')
 
 const config = require('./config')
 
 const app = new Koa()
+const pug = new Pug({
+  app,
+  viewPath: 'app/views/pages',
+  pretty: true,
+  locals: {
+    moment
+  }
+})
 
+app.use(serve(path.join(__dirname, '/public')))
 app.use(convert(bodyparser()))
 app.use(convert(compress()))
 app.use(convert(cors()))
@@ -33,7 +46,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // 挂在路由
-app.use(mount('/api/v1', require('./routes')))
+app.use(mount('/admin', require('./app/routes/admin')))
+app.use(mount('/api/v1', require('./app/routes')))
 
 connect()
   .on('error', console.log)
