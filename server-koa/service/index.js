@@ -4,6 +4,7 @@ _service.findAndCountAll = async function (modelObj, options) {
   return {
     rows: await modelObj.find(options.find_con)
       .limit(options.page_size)
+      .sort(options.sort)
       .skip(options.page_size * (options.current - 1))
       .exec(),
     count: await modelObj.find(options.find_con).count()

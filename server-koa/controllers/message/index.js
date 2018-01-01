@@ -12,6 +12,7 @@ module.exports = {
       let options = {
         current,
         page_size,
+        sort: '-createTime',
         find_con: {}
       }
       let result = await _service.findAndCountAll(message, options)

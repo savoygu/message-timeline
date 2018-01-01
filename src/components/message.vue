@@ -1,9 +1,10 @@
 <template>
   <div class="tm-message">
-    <publish :page-total="pageTotal"></publish>
+    <publish :page-total="pageTotal" @publish="handlePublish"></publish>
     <template v-if="!loading">
       <timeline :messages="messages" :page-total="pageTotal"
-                :current-page="currentPage"></timeline>
+                :current-page="currentPage"
+                :adding="adding"></timeline>
       <div class="tm-message__pagination">
         <pagination :page-count="pageCount" :current-page="currentPage" @change="handlePageChange"></pagination>
       </div>
@@ -48,8 +49,6 @@
     { expression: '24.gif', meaning: '快哭了' }
   ]
 
-  console.log(EMOJI)
-
   export default {
     name: 'TmMessage',
 
@@ -67,11 +66,21 @@
         pageTotal: 0,
         messages: [],
         loading: false,
+        adding: false,
         effect: Math.ceil(Math.random() * 10)
       }
     },
 
     methods: {
+      handlePublish ({message}) {
+        message.content = this.replaceEmoji(message.content)
+        this.messages.unshift(message)
+        this.adding = true
+        this.$nextTick(_ => {
+          this.$children.filter(_ => _.$options.name === 'TmTimeline')[0].waterfall()
+        })
+      },
+
       handlePageChange (page) {
         this.currentPage = page
         this.getMessages()
@@ -84,14 +93,13 @@
           current: this.currentPage
         }).then(res => {
           this.loading = false
-          console.log(res.result)
           if (res.code === '01') {
             this.pageTotal = res.result.count
             this.messages = res.result.rows.map(item => {
-              item.content = item.content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
-                let expression = EMOJI.filter(emoji => emoji.meaning === p)[0].expression
-                return `<img src=${'//img.smohan.net/app/emoji/q/' + expression} title=${p} alt=${p}>`
-              })
+              if (!item.content) {
+                return item
+              }
+              item.content = this.replaceEmoji(item.content)
               return item
             })
             this.pageCount = Math.ceil(this.pageTotal / 32)
@@ -99,6 +107,13 @@
               this.$children.filter(_ => _.$options.name === 'TmTimeline')[0].waterfall()
             })
           }
+        })
+      },
+
+      replaceEmoji (content) {
+        return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
+          let expression = EMOJI.filter(emoji => emoji.meaning === p)[0].expression
+          return `<img src=${'//img.smohan.net/app/emoji/q/' + expression} title=${p} alt=${p}>`
         })
       }
     },

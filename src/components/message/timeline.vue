@@ -6,7 +6,7 @@
           <strong class="tm-timeline__nickname">{{message.nickname}}</strong>
           <div class="tm-timeline__info">
             <span class="tm-timeline__floor">{{(pageTotal - (currentPage - 1) * 32) - index}}楼</span>&ensp;|&ensp;<span
-            class="time-timeline__time">刚刚</span>
+            class="time-timeline__time">{{timeToDate(message.createTime)}}</span>
           </div>
         </h5>
         <div class="tm-timeline__content" v-html="message.content"></div>
@@ -18,7 +18,7 @@
           <strong class="tm-timeline__reply-text">Reply：</strong>
           <span class="tm-timeline__reply-content">{{message.reply.text}}</span>
           &ensp;/&ensp;
-          <span class="tm-timeline__reply-time">09-18</span>
+          <span class="tm-timeline__reply-time">{{timeToDate(message.reply.time)}}</span>
         </div>
       </div>
     </div>
@@ -27,6 +27,7 @@
 
 <script>
   import { off, on, addClass, removeClass } from '@/utils/dom'
+  import timeToDate from '@/utils/date'
 
   export default {
     name: 'TmTimeline',
@@ -39,7 +40,21 @@
         }
       },
       pageTotal: Number,
-      currentPage: Number
+      currentPage: Number,
+      adding: Boolean
+    },
+
+    data () {
+      return {
+        timeToDate: timeToDate,
+        justNow: this.adding
+      }
+    },
+
+    watch: {
+      adding (newVal) {
+        this.justNow = newVal
+      }
     },
 
     methods: {

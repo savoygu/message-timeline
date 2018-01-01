@@ -67,7 +67,7 @@ export default {
     },
     validateNickname (val) {
       if (!val) return '个性昵称不能为空'
-      if (val.length < 3 || val.length > 16) return '个性昵称长度只能在3~16之间'
+      if (val.length < 1 || val.length > 18) return '个性昵称长度只能在1~18之间'
     },
     validateEmail (val) {
       if (!val) return '电子邮箱不能为空'
@@ -75,12 +75,15 @@ export default {
     },
 
     publishMessage () {
+      if (this.isDisabled) return
       post('/message', {
         nickname: this.nickname,
         content: this.content,
         email: this.email
       }).then(res => {
-        console.log(res)
+        if (res.code === '01') {
+          this.$emit('publish', { message: res.result })
+        }
       })
     }
   }
