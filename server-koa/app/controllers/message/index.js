@@ -24,6 +24,7 @@ module.exports = {
       let nickname = ctx.request.body.nickname || ctx.request.query.nickname
       let content = ctx.request.body.content || ctx.request.query.content
       let email = ctx.request.body.email || ctx.request.query.email
+      let notice = ctx.request.body.notice || ctx.request.query.notice
 
       const ip = await getIp()
       console.log('ip：', ip)
@@ -48,7 +49,8 @@ module.exports = {
           city: location.city,
           district: location.district
         },
-        avatar: avatar
+        avatar: avatar,
+        reviewed: notice
       }
       let result = await _service.create(message, messageModel)
       body.result = result

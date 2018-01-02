@@ -7,7 +7,7 @@ _message.getMessages = async (ctx) => {
   let page_size = ctx.request.body.page_size || ctx.request.query.page_size || 32
   let options = {
     current,
-    page_size,
+    page_size: Number(page_size),
     sort: '-createTime',
     find_con: {}
   }

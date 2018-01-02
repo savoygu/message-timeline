@@ -14,7 +14,7 @@ const MessageSchema = new Schema({
   },
   avatar: {type: String, trim: true},
   createTime: {type: Date, default: Date.now},
-  reviewed: {type: Boolean, default: false},
+  reviewed: {type: Boolean, default: true},
   reply: {
     text: {type: String, trim: true},
     time: {type: Date}

@@ -1,6 +1,6 @@
 <template>
   <div class="tm-message">
-    <publish :page-total="pageTotal" @publish="handlePublish"></publish>
+    <publish :page-total="pageTotal" :emojies="emojies" @publish="handlePublish"></publish>
     <template v-if="!loading">
       <timeline :messages="messages" :page-total="pageTotal"
                 :current-page="currentPage"
@@ -67,7 +67,8 @@
         messages: [],
         loading: false,
         adding: false,
-        effect: Math.ceil(Math.random() * 10)
+        effect: Math.ceil(Math.random() * 10),
+        emojies: EMOJI
       }
     },
 
@@ -75,6 +76,7 @@
       handlePublish ({message}) {
         message.content = this.replaceEmoji(message.content)
         this.messages.unshift(message)
+        this.pageTotal++
         this.adding = true
         this.$nextTick(_ => {
           this.$children.filter(_ => _.$options.name === 'TmTimeline')[0].waterfall()
@@ -113,7 +115,7 @@
       replaceEmoji (content) {
         return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
           let expression = EMOJI.filter(emoji => emoji.meaning === p)[0].expression
-          return `<img src=${'//img.smohan.net/app/emoji/q/' + expression} title=${p} alt=${p}>`
+          return `<img src=${'//timeline.creation.gusaifei.com/emoji/expression/' + expression} title=${p} alt=${p}>`
         })
       }
     },
