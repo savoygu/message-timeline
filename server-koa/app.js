@@ -8,6 +8,7 @@ const convert = require('koa-convert') // 封装中间件
 const mongoose = require('mongoose')
 const Pug = require('koa-pug')
 const serve = require('koa-static')
+const liveload = require('koa-liveload')
 const moment = require('moment')
 
 const config = require('./config')
@@ -19,7 +20,8 @@ const pug = new Pug({
   pretty: true,
   locals: {
     moment
-  }
+  },
+  noCache: true
 })
 
 app.use(serve(path.join(__dirname, '/public')))
@@ -43,6 +45,10 @@ app.on('error', (err, ctx) => {
 if (process.env.NODE_ENV === 'development') {
   // 开发配置
   mongoose.set('debug', true)
+
+  app.use(liveload(__dirname, {
+    includes: ['pug']
+  }))
 }
 
 // 挂在路由

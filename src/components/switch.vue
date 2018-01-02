@@ -213,7 +213,7 @@
       width: 28px;
       height: 28px;
       line-height: 28px;
-      font-size: 14px;
+      font-size: 12px;
       text-align: center;
       border-radius: 50%;
       box-shadow: 0 1px 3px rgba(0,0,0,.4);
