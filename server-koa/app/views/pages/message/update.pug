@@ -1,0 +1,36 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      form.form-horizontal(method='post', action='/admin/message/update')
+        if message._id
+          input(type='hidden', name='message[_id]', value=message._id)
+        .form-group
+          label.col-sm-3.control-label(for='nickname')  昵称
+          .col-sm-9
+            input#nickname.form-control(type='text', name='message[nickname]', value=message.nickname)
+        .form-group
+          label.col-sm-3.control-label(for='content')  内容
+          .col-sm-9
+            input#content.form-control(type='text', name='message[content]', value=message.content)
+        .form-group
+          label.col-sm-3.control-label(for='email')  Email
+          .col-sm-9
+            input#email.form-control(type='text', name='message[email]', value=message.email)
+        .form-group
+          label.col-sm-3.control-label(for='avatar')  头像
+          .col-sm-9
+            input#avatar.form-control(type='text', name='message[avatar]', value=message.avatar)
+        .form-group
+          label.col-sm-3.control-label(for='reviewed')  回复 #{message.reviewed}
+          .col-sm-9
+            label
+              input(type='radio', name='message[reviewed]', value=true)
+              span 回复
+            label
+              input(type='radio', name='message[reviewed]', value=false)
+              span 不回复
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            button.btn.btn-default(type='submit') 录入
