@@ -1,10 +1,12 @@
 const _ = require('underscore')
+const _s = require('underscore.string')
 const Message = require('../models/message')
 const Emoji = require('../models/emoji')
 const _service = require('../service')
 const { getMessages } = require('../service/message')
 const { getEmojies } = require('../service/emoji')
 const sendMail = require('../service/email')
+// const EMOJIES = require('./emojies')
 
 function replaceEmoji (emojies, content) {
   return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
@@ -17,7 +19,8 @@ function replaceMailEmoji (emojies, content, attachments) {
   let i = 0
   return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
     i++
-    let cid = String(i).padStart(8, '0')
+    // let cid = String(i).padStart(8, '0')
+    let cid = _s.pad(i + '', 8, '0')
     let expression = emojies.filter(emoji => emoji.meaning === p)[0].expression
     attachments.push({
       filename: expression,
