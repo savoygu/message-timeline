@@ -5,6 +5,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 server-koa/public/libs
+server-koa/app/service/config.js
 
 # Editor directories and files
 .idea
