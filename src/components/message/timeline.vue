@@ -16,7 +16,7 @@
         </p>
         <div class="tm-timeline__reply" v-if="message.reply">
           <strong class="tm-timeline__reply-text">Reply：</strong>
-          <span class="tm-timeline__reply-content">{{message.reply.text}}</span>
+          <span class="tm-timeline__reply-content" v-html="message.reply.text"></span>
           &ensp;/&ensp;
           <span class="tm-timeline__reply-time">{{timeToDate(message.reply.time)}}</span>
         </div>

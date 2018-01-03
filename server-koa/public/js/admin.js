@@ -21,4 +21,10 @@ $(function () {
 
   remove('.js-message-del', '/admin/message')
   remove('.js-emoji-del', '/admin/emoji')
+
+  $('.js-message-reply').click(function (e) {
+    var meaning = $(this).data('meaning')
+    var reply = $('#reply')
+    reply.val(reply.val() + '[q:' + meaning + ']')
+  })
 })

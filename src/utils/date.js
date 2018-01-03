@@ -28,6 +28,7 @@ Date.prototype.format = function (format) {
  * @return {[type]}      [description]
  */
 export default function timeToDate (time) {
+  console.log(time)
     // 获取当前时间戳
   const createTime = parseInt(new Date(time).getTime() / 1000)
   const currentTime = parseInt(new Date().getTime() / 1000)

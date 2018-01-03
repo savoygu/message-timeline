@@ -16,12 +16,12 @@ module.exports = {
   getMessages: async (ctx) => {
     try {
       const result = await getMessages(ctx)
-      const emojies = await getEmojies(ctx).rows
+      const emojies = await getEmojies(ctx)
       result.rows = result.rows.map(item => {
         if (!item.content) {
           return item
         }
-        item.content = replaceEmoji(emojies, item.content)
+        item.content = replaceEmoji(emojies.rows, item.content)
         return item
       })
       ctx.render('message/list', {
@@ -70,9 +70,12 @@ module.exports = {
     try {
       if (id) {
         let message = await _service.findById(Message, id)
+        const emojies = await getEmojies(ctx)
+        message.content = replaceEmoji(emojies.rows, message.content)
         ctx.render('message/reply', {
           title: '回复留言',
-          message
+          message,
+          emojies
         })
       }
     } catch (e) {
@@ -88,6 +91,9 @@ module.exports = {
       if (id) {
         let oldMessage = await _service.findById(Message, id)
         _message = _.extend(oldMessage, message)
+        if (!_message.reply.time) {
+          _message.reply.time = Date.now()
+        }
         const newMessage = await _message.save()
         if (newMessage.reviewed) { // 邮件通知
 

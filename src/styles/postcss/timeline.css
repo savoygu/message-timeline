@@ -127,6 +127,16 @@
       font-weight: 500;
       color: #181817;
     }
+
+    @e reply-content {
+
+      img {
+        display: inline;
+        min-height: 1.25rem;
+        vertical-align: middle;
+        margin: 0px 0.3125rem;
+      }
+    }
   }
 }
 
