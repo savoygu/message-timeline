@@ -3,7 +3,7 @@ extends ../../layout
 block content
   .container
     .row
-      form.form-horizontal(method='post', action='/admin/message/update')
+      form.form-horizontal(method='post', action='/admin/message')
         if message._id
           input(type='hidden', name='message[_id]', value=message._id)
         .form-group
@@ -21,15 +21,16 @@ block content
         .form-group
           label.col-sm-3.control-label(for='avatar')  头像
           .col-sm-9
-            input#avatar.form-control(type='text', name='message[avatar]', value=message.avatar)
+            img(src=message.avatar, width=50, height=50)
+            //- input#avatar.form-control(type='text', name='message[avatar]', value=message.avatar)
         .form-group
-          label.col-sm-3.control-label(for='reviewed')  回复 #{message.reviewed}
+          label.col-sm-3.control-label(for='reviewed')  回复
           .col-sm-9
-            label
-              input(type='radio', name='message[reviewed]', value=true)
+            label.radio-inline
+              input(type='radio', name='message[reviewed]', value='1', checked=message.reviewed === true)
               span 回复
-            label
-              input(type='radio', name='message[reviewed]', value=false)
+            label.radio-inline
+              input(type='radio', name='message[reviewed]', value='0', checked=message.reviewed === false)
               span 不回复
         .form-group
           .col-sm-offset-3.col-sm-9

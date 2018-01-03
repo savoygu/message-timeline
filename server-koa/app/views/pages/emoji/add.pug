@@ -1,0 +1,24 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      form.form-horizontal(method='post', action='/admin/emoji')
+        if emoji._id
+          input(type='hidden', name='emoji[_id]', value=emoji._id)
+        .form-group
+          label.col-sm-3.control-label(for='expression')  表情
+          .col-sm-9
+            input#expression.form-control(type='text', name='emoji[expression]', value=emoji.expression)
+        .form-group
+          label.col-sm-3.control-label(for='expression')  动态表情
+          .col-sm-9
+            p !{emoji.dynamic}
+            //- input#expression.form-control(type='text', name='emoji[expression]', value=emoji.expression)
+        .form-group
+          label.col-sm-3.control-label(for='content')  内容
+          .col-sm-9
+            input#content.form-control(type='text', name='emoji[meaning]', value=emoji.meaning)
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            button.btn.btn-default(type='submit') 录入

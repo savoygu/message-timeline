@@ -20,12 +20,12 @@ block content
             tr(class='item-id-' + item._id)
               th: img(src=item.avatar, width=50, height=50)
               td #{item.nickname}
-              td #{item.content}
+              td !{item.content}
               td #{item.email}
               td #{item.location.province === item.location.city ? item.location.province : item.location.province + item.location.city}
               td #{moment(item.createTime).format('YYYY-MM-DD HH:mm')}
               td: a(target='_blank', href='/admin/message/reply/' + item._id) 回复
-              td: a(target='_blank', href='/admin/message/update/' + item._id) 修改
+              td: a(target='_blank', href='/admin/message/' + item._id) 修改
               td
-                button.btn.btn-danger.js-category-del(type='button', data-id=item._id) 删除
-  script(src="js/message.js")
+                button.btn.btn-danger.js-message-del(type='button', data-id=item._id) 删除
+  script(src="/js/admin.js")

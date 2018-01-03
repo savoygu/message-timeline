@@ -1,0 +1,19 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      form.form-horizontal(method='post', action='/admin/message/reply')
+        if message._id
+          input(type='hidden', name='message[_id]', value=message._id)
+        .form-group
+          label.col-sm-3.control-label(for='nickname')  #{message.nickname}说
+          .col-sm-9
+            p.control-label.pull-left #{message.content}
+        .form-group
+          label.col-sm-3.control-label(for='nickname')  回复内容
+          .col-sm-9
+            input#nickname.form-control(type='text', name='message[reply][text]', value=message.reply.text)
+        .form-group
+          .col-sm-offset-3.col-sm-9
+            button.btn.btn-default(type='submit') 录入
