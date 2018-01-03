@@ -4,11 +4,27 @@ const Emoji = require('../models/emoji')
 const _service = require('../service')
 const { getMessages } = require('../service/message')
 const { getEmojies } = require('../service/emoji')
+const sendMail = require('../service/email')
 
 function replaceEmoji (emojies, content) {
   return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
     let expression = emojies.filter(emoji => emoji.meaning === p)[0].expression
     return `<img src=${'//timeline.creation.gusaifei.com/emoji/expression/' + expression} title=${p} alt=${p}>`
+  })
+}
+
+function replaceMailEmoji (emojies, content, attachments) {
+  let i = 0
+  return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
+    i++
+    let cid = String(i).padStart(8, '0')
+    let expression = emojies.filter(emoji => emoji.meaning === p)[0].expression
+    attachments.push({
+      filename: expression,
+      path: 'http://timeline.creation.gusaifei.com/emoji/expression/' + expression,
+      cid: cid
+    })
+    return `<img src=${'cid:' + cid} title=${p} alt=${p} style='display: inline; min-height: 1.25rem; vertical-align: middle; margin: 0px 0.3125rem;'>`
   })
 }
 
@@ -96,7 +112,16 @@ module.exports = {
         }
         const newMessage = await _message.save()
         if (newMessage.reviewed) { // 邮件通知
-
+          const data = await getEmojies(ctx)
+          const emojies = data.rows
+          let attachments = []
+          const content = replaceMailEmoji(emojies, newMessage.content, attachments)
+          const reply = replaceMailEmoji(emojies, newMessage.reply.text, attachments)
+          const htmlTpl = `<h3>你说：</h3>
+                           <p>${content}</p>
+                           <h3>她说：</h3>
+                           <p>${reply}</p>`
+          sendMail(newMessage.email, '来自时间轴主人的问候', htmlTpl, attachments)
         }
         ctx.redirect('/admin/messages')
       }

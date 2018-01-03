@@ -27,6 +27,8 @@
     "md5": "^2.2.1",
     "moment": "^2.20.1",
     "mongoose": "^4.13.8",
+    "nodemailer": "^4.4.1",
+    "nodemailer-smtp-transport": "^2.7.4",
     "request": "^2.83.0",
     "superagent": "^3.8.2",
     "underscore": "^1.8.3"
