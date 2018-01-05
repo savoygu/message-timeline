@@ -47,7 +47,7 @@
 
     methods: {
       handlePublish ({message}) {
-        message.content = this.replaceEmoji(message.content)
+        message.content = this.replaceEmoji(this.emojies, message.content)
         this.messages.unshift(message)
         this.pageTotal++
         this.adding = true
@@ -61,8 +61,11 @@
         this.getMessages()
       },
 
-      getMessages () {
+      async getMessages () {
         this.loading = true
+        if (!this.emojies.length) {
+          await this.getEmojies()
+        }
         fetch('/messages', {
           page_size: 32,
           current: this.currentPage
@@ -88,8 +91,8 @@
         })
       },
 
-      getEmojies () {
-        fetch('/emojies').then(res => {
+      async getEmojies () {
+        await fetch('/emojies').then(res => {
           if (res.code === '01') {
             this.emojies = res.result.rows
           }
@@ -105,7 +108,6 @@
     },
 
     mounted () {
-      this.getEmojies()
       this.getMessages()
     }
   }
