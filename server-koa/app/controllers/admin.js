@@ -2,11 +2,13 @@ const _ = require('underscore')
 const _s = require('underscore.string')
 const Message = require('../models/message')
 const Emoji = require('../models/emoji')
+const User = require('../models/user')
 const _service = require('../service')
 const { getMessages } = require('../service/message')
 const { getEmojies } = require('../service/emoji')
 const sendMail = require('../service/email')
 // const EMOJIES = require('./emojies')
+const FOREVER_LOVE = 1314
 
 function replaceEmoji (emojies, content) {
   return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
@@ -219,6 +221,112 @@ module.exports = {
     try {
       if (id) {
         await _service.deleteAll(Emoji, {_id: id})
+      }
+    } catch (e) {
+      body = {success: 0}
+    } finally {
+      ctx.body = body
+    }
+  },
+
+  showSignup: (ctx) => {
+    ctx.render('user/signup', {
+      title: '注册页面'
+    })
+  },
+
+  showSignin: (ctx) => {
+    ctx.render('user/signin', {
+      title: '登录页面'
+    })
+  },
+
+  signup: async (ctx) => {
+    const _user = ctx.request.body.user
+    try {
+      let oldUser = await _service.findOne(User, {name: _user.name})
+      if (oldUser) { // 存在
+        return ctx.redirect('/user/signin')
+      } else {
+        let user = new User(_user)
+        let newUser = user.save()
+        ctx.session.user = newUser
+
+        return ctx.redirect('/admin/messages')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  signin: async (ctx) => {
+    const _user = ctx.request.body.user
+    const name = _user.name
+    const password = _user.password
+
+    try {
+      let user = await _service.findOne(User, {name: name})
+      if (!user) {
+        return ctx.redirect('/admin/user/signup')
+      }
+
+      let isMatch = await user.comparePassword(password)
+      if (isMatch) {
+        ctx.session.user = user
+
+        return ctx.redirect('/admin/messages')
+      } else {
+        return ctx.redirect('/user/signin')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  logout: (ctx) => {
+    delete ctx.session.user
+
+    ctx.redirect('/user/signin')
+  },
+
+  destroyUser: async (ctx) => {
+    const id = ctx.request.query.id
+    let body = {success: 1}
+
+    try {
+      if (id) {
+        await _service.deleteAll(User, {_id: id})
+      }
+    } catch (e) {
+      body = {success: 0}
+    } finally {
+      ctx.body = body
+    }
+  },
+
+  getUsers: async function (ctx) {
+    try {
+      let users = await _service.findAll(User, {})
+      ctx.render('user/list', {
+        title: '用户列表页',
+        users: users
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  settingUser: async (ctx) => {
+    const id = ctx.request.query.id
+    let body = {success: 1}
+    try {
+      if (id) {
+        let user = await _service.findById(User, id)
+        if (user) {
+          await _service.update(User, {$set: {role: FOREVER_LOVE}}, {_id: id})
+        } else {
+          body = {success: 0}
+        }
       }
     } catch (e) {
       body = {success: 0}

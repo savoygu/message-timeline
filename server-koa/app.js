@@ -8,10 +8,17 @@ const convert = require('koa-convert') // 封装中间件
 const mongoose = require('mongoose')
 const Pug = require('koa-pug')
 const serve = require('koa-static')
+const session = require('koa-session') // session
 const liveload = require('koa-liveload')
 const moment = require('moment')
 
 const config = require('./config')
+const env = process.env.NODE_ENV || 'development'
+
+let dbURL = 'mongodb://127.0.0.1:27017/timeline' // 线上地址
+if (env === 'development') {
+  dbURL = 'mongodb://' + config.database.host + '/' + config.database.db
+}
 
 const app = new Koa()
 const pug = new Pug({
@@ -21,13 +28,26 @@ const pug = new Pug({
   locals: {
     moment
   },
-  noCache: true
+  noCache: env === 'development'
 })
 
 app.use(serve(path.join(__dirname, '/public')))
 app.use(convert(bodyparser()))
 app.use(convert(compress()))
 app.use(convert(cors()))
+
+app.keys = ['secret is only a secret']
+app.use(session({
+  key: 'timeline-koa2', /** (string) cookie key (default is koa:sess) */
+  /** (number || 'session') maxAge in ms (default is 1 days) */
+  /** 'session' will result in a cookie that expires when session/browser is closed */
+  /** Warning: If a session cookie is stolen, this cookie will never expire */
+  maxAge: 86400000,
+  overwrite: true, /** (boolean) can overwrite or not (default true) */
+  httpOnly: true, /** (boolean) httpOnly or not (default true) */
+  signed: true, /** (boolean) signed or not (default true) */
+  rolling: false /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. default is false **/
+}, app))
 
 app.use(async (ctx, next) => {
   let start = new Date()
@@ -42,7 +62,7 @@ app.on('error', (err, ctx) => {
 })
 
 // 开发配置
-if (process.env.NODE_ENV === 'development') {
+if (env === 'development') {
   // 开发配置
   mongoose.set('debug', true)
 
@@ -52,6 +72,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // 挂在路由
+app.use(mount('/', require('./app/routes/user'))) // 放开登录页面
 app.use(mount('/admin', require('./app/routes/admin')))
 app.use(mount('/api/v1', require('./app/routes')))
 
@@ -69,7 +90,7 @@ function listen () {
 // 数据库连接
 function connect () {
   mongoose.Promise = global.Promise // resolve a bug that mpromise is deprecated,plug in your own promise library instead
-  return mongoose.connect('mongodb://' + config.database.host + '/' + config.database.db, {
+  return mongoose.connect(dbURL, {
     useMongoClient: true
   })
 }

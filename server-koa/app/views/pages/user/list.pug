@@ -1,0 +1,31 @@
+extends ../../layout
+
+block content
+  .container
+    .row
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th 用户名
+            //- th 密码
+            th 录入时间
+            th 查看
+            th 更新
+            th 角色
+            th 删除
+        tbody
+          each item in users
+            tr(class='item-id-' + item._id)
+              td #{item.name}
+              //- td #{item.password}
+              td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
+              td: a(target='_blank', href='/admin/user/' + item._id) 查看
+              td: a(target='_blank', href='/admin/user/update/' + item._id) 修改
+              td(class='item-id-' + item._id)
+                if item.role > 10
+                  span 管理员
+                else
+                  button.btn.btn-danger.js-user-setting(type='button', data-id=item._id) 设为管理员
+              td
+                button.btn.btn-danger.js-user-del(type='button', data-id=item._id) 删除
+  script(src='/js/admin.js')
