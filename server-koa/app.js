@@ -5,14 +5,14 @@ const bodyparser = require('koa-bodyparser') // 传参获取
 const compress = require('koa-compress') // 传输压缩
 const mount = require('koa-mount') // 路由挂载
 const convert = require('koa-convert') // 封装中间件
-const mongoose = require('mongoose')
-const Pug = require('koa-pug')
-const serve = require('koa-static')
+const mongoose = require('mongoose') // 操作 mongodb
+const Pug = require('koa-pug') // 视图资源
+const serve = require('koa-static') // 静态资源
 const session = require('koa-session') // session
-const liveload = require('koa-liveload')
+const liveload = require('koa-liveload') // 重载
 const moment = require('moment')
 
-const config = require('./config')
+const config = require('./config') // 应用和数据库配置
 const env = process.env.NODE_ENV || 'development'
 
 let dbURL = 'mongodb://127.0.0.1:27017/timeline' // 线上地址
@@ -72,9 +72,9 @@ if (env === 'development') {
 }
 
 // 挂在路由
-app.use(mount('/', require('./app/routes/user'))) // 放开登录页面
 app.use(mount('/admin', require('./app/routes/admin')))
 app.use(mount('/api/v1', require('./app/routes')))
+app.use(mount('/', require('./app/routes/user'))) // 放开登录页面
 
 connect()
   .on('error', console.log)

@@ -4,11 +4,9 @@
   "description": "基于 koa+mongoose 时间轴后台",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "grunt",
-    "server": "node app.js",
     "grunt": "cross-env NODE_ENV=development grunt",
-    "gulp": "cross-env NODE_ENV=development gulp server"
+    "gulp": "cross-env NODE_ENV=development gulp server",
+    "start": "npm run grunt"
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +22,7 @@
     "koa-mount": "^3.0.0",
     "koa-pug": "^3.0.0-2",
     "koa-router": "^7.3.0",
-    "koa-session": "^5.5.1",
+    "koa-session": "^5.8.1",
     "koa-static": "^4.0.2",
     "md5": "^2.2.1",
     "moment": "^2.20.1",
