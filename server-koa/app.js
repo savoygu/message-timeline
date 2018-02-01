@@ -23,7 +23,7 @@ if (env === 'development') {
 const app = new Koa()
 const pug = new Pug({
   app,
-  viewPath: 'app/views/pages',
+  viewPath: path.join(__dirname, 'app/views/pages'),
   pretty: true,
   locals: {
     moment
