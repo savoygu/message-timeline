@@ -1,0 +1,50 @@
+{
+  "name": "@message-timeline/server",
+  "version": "0.0.0",
+  "description": "留言时间轴服务端",
+  "main": "app.js",
+  "scripts": {
+    "predev": "cnpm install && bower install",
+    "dev": "cross-env NODE_ENV=development gulp serve",
+    "start": "npm run dev",
+    "lint": "eslint --ext .js ./"
+  },
+  "author": "savoygu",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^3.3.0",
+    "@koa/router": "^10.1.1",
+    "bcryptjs": "^2.4.3",
+    "bent": "^7.3.12",
+    "dayjs": "^1.11.2",
+    "form-urlencoded": "^6.0.6",
+    "gravatar": "^1.8.2",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0",
+    "koa-compress": "^5.1.0",
+    "koa-pug": "^5.0.0",
+    "koa-session": "^6.2.0",
+    "koa-static": "^5.0.0",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "mongoose": "^6.3.3",
+    "nodemailer": "^6.7.5",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "pug": "^3.0.2",
+    "superagent": "^6.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.8.14",
+    "browser-sync": "^2.27.9",
+    "cross-env": "^5.1.3",
+    "eslint": "^8.15.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-nodemon": "^2.5.0",
+    "nodemon": "^2.0.16"
+  }
+}

@@ -1,0 +1,31 @@
+extends ../../layout
+
+block content
+  .container(style='padding-bottom: 100px;')
+    .row
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th 头像
+            th 昵称
+            th 内容
+            th 邮箱
+            th 位置
+            th 留言时间
+            th 回复
+            th 更新
+            th 删除
+        tbody
+          each item in data.rows
+            tr(class='item-id-' + item._id)
+              th: img(src=item.avatar, width=50, height=50)
+              td #{item.nickname}
+              td !{item.content}
+              td #{item.email}
+              td #{item.location.province === item.location.city ? item.location.province : item.location.province + item.location.city}
+              td #{dayjs(item.createTime).format('YYYY-MM-DD HH:mm')}
+              td: a(href='/admin/message/reply/' + item._id) 回复
+              td: a(href='/admin/message/' + item._id) 修改
+              td
+                button.btn.btn-danger.js-message-del(type='button', data-id=item._id) 删除
+  script(src="/js/admin.js")

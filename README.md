@@ -1,199 +1,88 @@
-# 时间轴
+# 留言时间轴
 
-> :love_letter:基于 Vue -> Koa2 -> Mongoose Vue 的留言时间轴，记录美好时光。
+> :love_letter: 留言时间轴，记录美好时刻
 
-## 目录
 
-<!-- TOC -->
+## 运行环境
 
-- [时间轴](#%E6%97%B6%E9%97%B4%E8%BD%B4)
-  - [目录](#%E7%9B%AE%E5%BD%95)
-  - [效果预览](#%E6%95%88%E6%9E%9C%E9%A2%84%E8%A7%88)
-  - [项目运行](#%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C)
-  - [前端项目目录](#%E5%89%8D%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95)
-  - [后端项目目录](#%E5%90%8E%E7%AB%AF%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95)
-  - [项目架构（加载中...）](#%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%EF%BC%88%E5%8A%A0%E8%BD%BD%E4%B8%AD%EF%BC%89)
+### Mongodb 数据库
 
-<!-- /TOC -->
+所需版本：4.x [macOS](https://www.mongodb.com/docs/v4.4/tutorial/install-mongodb-on-os-x/)、[Windows](https://www.mongodb.com/docs/v4.4/tutorial/install-mongodb-on-windows/)（本项目采用的 4.4.14）
 
-## 效果预览
+完成安装后，确保 mongod 服务开启。
 
-[emmmmmmm](https://timeline.vue.gusaifei.com)
-## 项目运行
+### 邮件回复设置【可选】
+
+> 不设置也能正常启动服务，只不过当你在管理端对留言方回复留言时，无法给留言方发送邮件提醒
+
+需要在目录 `server/app/service` 下创建 `config.js` 文件，格式如下：
+
+```node
+module.exports = {
+  email: {
+    service: 'QQ', // QQ、Gmail（谷歌）、Hotmail、Yahoo（雅虎）
+    user: '邮箱账号',
+    pass: '授权码' // QQ：设置 -> 账户 -> 开启「POP3/SMTP服务」 -> 生成授权码
+  }
+}
+```
+
+## 运行项目
+
+同时启动客户端和服务端
 
 ```bash
-# 安装依赖
-npm run bootstrap
-
-# 前端
 npm run start
-
-# 后端
-npm run server
-
-# 同时开启
-npm run all
 ```
 
-## 前端项目目录
+## 技术栈
 
-生成方式：参考文档 [https://github.com/jrainlau/filemap](https://github.com/jrainlau/filemap)
+### 客户端
 
-```bash
-npm run filemap
-```
+基于 Vue.js 2.x 版本来开发
 
-```bash
-|__ build                                             # webpack 配置
-  |__ build.js
-  |__ check-versions.js
-  |__ dev-client.js
-  |__ dev-server.js
-  |__ salad.config.json
-  |__ utils.js
-  |__ vue-loader.conf.js
-  |__ webpack.base.conf.js
-  |__ webpack.dev.conf.js
-  |__ webpack.prod.conf.js
-|__ config
-  |__ dev.env.js
-  |__ index.js
-  |__ prod.env.js
-|__ server-koa                                        # koa：目录在下面
-|__ src                                               # vue 源代码
-  |__ App.vue                                           # vue 入口
-  |__ assets                                            # 静态资源
-    |__ emoji                                             # emoji 图片
-      |__ 1.gif
-      |__ 2.gif
-      |__ 3.gif
-      |__ ....gif
-    |__ fonts                                             # 字体
-      |__ iconfont.eot
-      |__ iconfont.svg
-      |__ iconfont.ttf
-      |__ iconfont.woff
-    |__ logo.png
-  |__ components                                        # vue 组件
-    |__ loading.vue                                       # 加载中组件
-    |__ message                                           # 留言页面
-      |__ pagination.vue                                    # 分页组件
-      |__ publish.vue                                       # 发布留言组件
-      |__ timeline.vue                                      # 留言列表组件
-    |__ message.vue                                       # 留言页面
-    |__ switch.vue                                        # 开关组件
-    |__ toast.vue                                         # 提示组件
-  |__ http                                              # http 请求
-    |__ index.js                                          # axios 配置及 GET、POST请求方法封装
-  |__ main.js                                           # webpack 入口
-  |__ router                                            # 路由配置
-    |__ index.js
-  |__ styles                                            # 样式
-    |__ less
-    |__ postcss
-      |__ icon.css
-      |__ index.css
-      |__ loading.css
-      |__ message.css
-      |__ pagination.css
-      |__ publish.css
-      |__ timeline-backup.css
-      |__ timeline.css
-      |__ var.css
-    |__ scss
-    |__ stylus
-    |__ tipsy.css
-  |__ utils                                             # 工具方法
-    |__ date.js
-    |__ dom.js
-|__ static
-  |__ .gitkeep
-|__ .babelrc
-|__ .editorconfig
-|__ .eslintignore
-|__ .eslintrc.js
-|__ .gitignore
-|__ .postcssrc.js
-|__ index.html
-|__ package-lock.json
-|__ package.json
-|__ README.md
-|__ yarn.lock
-```
+- [vue.js 2.x](https://cn.vuejs.org/index.html)（渐进式 JavaScript 框架）
+- [vue-router](https://v3.router.vuejs.org/zh/installation.html)（Vue.js 官方路由）
+- [axios](https://github.com/axios/axios)（基于 Promise 的 HTTP 客户端）
+- [postcss](https://postcss.org/)（使用 JS 插件转换样式的工具）
 
-**[⬆ back to top](#目录)**
+### 服务端
 
-## 后端项目目录
+基于 Koa2 来构建 Node.js 服务
 
-/server-koa/
+- [koa]()（Node.js 的 web 开发框架）
+- [@koa/router](https://github.com/koajs/router)（路由器中间件）
+- [koa-session](https://github.com/koajs/session)（简单会话中间件）
+- [koa-static](https://github.com/koajs/static)（静态文件服务器中间件）
+- [koa-pug](https://www.npmjs.com/package/koa-pug)（Pug 中间件）
+- ~~[koa-mount](https://github.com/koajs/mount)~~（将其他 Koa 应用程序或中间件装载到给定的路径名）
+- [@koa/cors](https://github.com/koajs/cors)（跨域资源共享（CORS））
+- [koa-compress](https://github.com/koajs/compress)（压缩中间件）
+- [koa-body](https://github.com/koajs/koa-body)（body 解析器中间件）
+- [mongoose](https://mongoosejs.com/docs/4.x/)（NoSql 数据库 Mongodb 的 ORM 框架）
+- [dayjs](https://day.js.org/zh-CN/)（2kB 大小的JavaScript 时间日期库）
+- [nodemailer](https://nodemailer.com/about/  )（让 Node.js 发送 Email 变得简单极了）
+- [bcryptjs](https://www.npmjs.com/package/bcryptjs)（零依赖的散列密码的库）
 
-```bash
-|__ app                                                # 应用
-  |__ controllers                                        # 控制层
-    |__ admin.js                                           # 管理后台：用户、留言、emoji
-    |__ emoji                                              # emoji
-      |__ index.js
-    |__ emojies.js                                         # emoji 数据（接口已经存在了）
-    |__ message                                            # 留言接口：新增留言、留言列表
-      |__ index.js
-  |__ middleware                                         # 中间件
-    |__ permission.js                                      # 权限控制：登录及管理员
-  |__ models                                             # 模型
-    |__ emoji.js                                           # emoji
-    |__ message.js                                         # 留言
-    |__ user.js                                            # 用户
-  |__ routes                                             # 路由
-    |__ admin.js                                           # 管理后台路由：需要登录
-    |__ emoji                                              # emoji 路由
-      |__ index.js
-    |__ index.js                                           # 合并emoji 路由、留言路由
-    |__ message                                            # 留言路由
-      |__ index.js
-    |__ user                                               # 管理后台路由：开放登录
-      |__ index.js
-  |__ service                                            # 服务层
-    |__ config.js                                          # 发送邮件配置（见下面的emoji.js 说明）
-    |__ email.js                                           # 发送邮件
-    |__ emoji.js                                           # emoji
-    |__ index.js
-    |__ location.js                                        # 地理位置
-    |__ message.js                                         # 留言
-  |__ views                                              # 视图层
-    |__ includes                                           # 通用模板
-      |__ head.pug
-      |__ header.pug
-    |__ layout.pug                                         # 布局模板
-    |__ pages                                              # 页面
-      |__ 404.pug                                            # 404 页面
-      |__ emoji                                              # emoji 页面
-        |__ add.pug                                            # 新增emoji 页面
-        |__ list.pug                                           # emoji 列表页面
-      |__ message                                            # 留言页面
-        |__ list.pug                                             # 留言列表页面
-        |__ reply.pug                                            # 回复留言页面
-        |__ update.pug                                           # 更新留言页面
-      |__ user                                               # 管理员页面
-        |__ list.pug                                               # 管理员列表页面
-        |__ signin.pug                                               # 登录页面
-        |__ signup.pug                                               # 注册页面
-|__ config                                                # 应用和数据库配置
-  |__ index.js
-|__ public                                                # 静态资源
-  |__ js                                                    # 删除操作
-    |__ admin.js
-  |__ libs                                                  # 类库
-    |__ bootstrap
-    |__ jquery
-|__ .bowerrc
-|__ .editorconfig
-|__ .eslintrc.json
-|__ app.js                                                # 应用入口
-|__ bower.json
-|__ gruntfile.js                                          # grunt 配置
-|__ gulpfile.js                                           # gulp 配置
-|__ package.json
-```
+## 功能概览
 
-**[⬆ back to top](#目录)**
+### 客户端
 
-## 项目架构（加载中...）
+- 留言功能（支持开启邮件通知）
+- 时间轴
+
+### 服务器
+
+- 留言管理
+  - 留言列表
+  - 回复留言
+  - 编辑留言
+  - 删除留言
+- emoji 管理
+  - emoji 列表
+  - 新增 emoji
+  - 编辑 emoji
+- 用户管理
+  - 用户列表
+  - 设置管理员
+  - 删除用户
