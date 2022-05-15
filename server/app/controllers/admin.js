@@ -254,7 +254,7 @@ module.exports = {
         return ctx.redirect('/user/signin')
       }
 
-      const user = await service.create(newUser)
+      const user = await service.create(User, newUser)
       ctx.session.user = user
 
       return ctx.redirect('/admin/messages')

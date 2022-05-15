@@ -2,7 +2,6 @@ const Router = require('@koa/router')
 const router = new Router()
 
 const adminController = require('../../controllers/admin')
-const Permission = require('../../middleware/permission')
 
 function adminRouter (router) {
   router.get('/messages', adminController.getMessages)
@@ -26,9 +25,12 @@ function adminRouter (router) {
   router.get('/user/setting', adminController.settingUser)
 }
 
-// 权限已关闭
-router.use(Permission.signinRequired)
-// router.use(Permission.adminRequired)
+// 权限设置
+if (require('../../../config').permission) {
+  const Permission = require('../../middleware/permission')
+  router.use(Permission.signinRequired)
+  router.use(Permission.adminRequired)
+}
 
 router.use(async (ctx, next) => { // 获取 session 中的 user
   const _user = ctx.session.user
