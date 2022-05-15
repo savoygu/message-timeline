@@ -1,0 +1,24 @@
+extends ../../layout
+
+block content
+  .container(style='padding-bottom: 100px;')
+    .row
+      a.btn.btn-default(href='/admin/emoji', style='margin-bottom: 20px;') 新增
+      table.table.table-hover.table-bordered
+        thead
+          tr
+            th 表情
+            th 动态表情
+            th 含义
+            th 修改
+            th 刪除
+        tbody
+          each item in data.rows
+            tr(class='item-id-' + item._id)
+              td #{item.expression}
+              td !{item.dynamic}
+              td #{item.meaning}
+              td: a(href='/admin/emoji/' + item._id) 修改
+              td
+                button.btn.btn-danger.js-emoji-del(type='button', data-id=item._id) 删除
+  script(src="/js/admin.js")

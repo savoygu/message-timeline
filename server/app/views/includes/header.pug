@@ -1,0 +1,58 @@
+.container
+    .row
+        .page-header.clearfix
+            h3(style="font-size:16px")= title
+            .col-md-4
+              //- small 记录美好时刻
+.navbar.navbar-default.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href='/admin/messages') 留言时间轴
+              small  — 记录美好时刻
+        if user
+            .nav.navbar-nav
+                li
+                    a(href='/admin/messages') 留言管理
+                li
+                    a(href='/admin/emojis') Emoji管理
+                li
+                    a(href='/admin/users') 用户管理
+            p.navbar-text.navbar-right
+                span 欢迎您，#{user.name}
+                span &nbsp;|&nbsp;
+                a.navbar-link(href='/admin/user/logout') 登出
+        else
+            p.navbar-text.navbar-right
+                //- a.navbar-link(href='#', data-toggle='modal', data-target='#signupModal') 注册
+                //- span &nbsp;|&nbsp;
+                //- a.navbar-link(href='#', data-toggle='modal', data-target='#signinModal') 登录
+#signupModal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(method='post', action='/admin/user/signup')
+                .modal-header 注册
+                .modal-body
+                    .form-group
+                        label(for='signupName') 用户名
+                        input#signupName.form-control(name='user[name]', type='text', required)
+                    .form-group
+                        label(for='signupPassword') 密码
+                        input#signupPassword.form-control(name='user[password]', type='text', required)
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+                    button.btn.btn-success(type='submit') 提交
+#signinModal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(method='post', action='/user/signin')
+                .modal-header 登录
+                .modal-body
+                    .form-group
+                        label(for='signinName') 用户名
+                        input#signinName.form-control(name='user[name]', type='text', required)
+                    .form-group
+                        label(for='signinPassword') 密码
+                        input#signinPassword.form-control(name='user[password]', type='text', required)
+                .modal-footer
+                    button.btn.btn-default(type='button', data-dismiss='modal') 关闭
+                    button.btn.btn-success(type='submit') 提交
