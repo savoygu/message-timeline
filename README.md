@@ -1,9 +1,10 @@
 # 留言时间轴
 
-> :love_letter: 留言时间轴，记录美好时刻
-
-
 ## 运行环境
+
+### Node.js 版本
+
+所需版本：12 以上
 
 ### Mongodb 数据库
 
@@ -27,6 +28,10 @@ module.exports = {
 }
 ```
 
+### 项目说明
+
+服务端页面的访问需要登录权限，但并未开放注册页面。需要手动修改配置文件 `server/config/index.js` 下的 `permission` 属性来控制访问权限的开启，`false` 表示不开启访问权限（已默认设置），届时可以访问注册页面 `/admin/user/signup` 来注册用户。
+
 ## 运行项目
 
 同时启动客户端和服务端
@@ -35,22 +40,29 @@ module.exports = {
 npm run start
 ```
 
+客户端地址：http://localhost:8080
+
+服务端地址：
+
+  - http://localhost:5000（开发）
+  - http://localhost:3000（生产）
+
 ## 技术栈
 
 ### 客户端
 
 基于 Vue.js 2.x 版本来开发
 
-- [vue.js 2.x](https://cn.vuejs.org/index.html)（渐进式 JavaScript 框架）
+- [vue.js](https://cn.vuejs.org/index.html)（渐进式 JavaScript 框架）
 - [vue-router](https://v3.router.vuejs.org/zh/installation.html)（Vue.js 官方路由）
-- [axios](https://github.com/axios/axios)（基于 Promise 的 HTTP 客户端）
+- [axios](https://axios-http.com/docs/intro)（基于 Promise 的 HTTP 客户端）
 - [postcss](https://postcss.org/)（使用 JS 插件转换样式的工具）
 
 ### 服务端
 
 基于 Koa2 来构建 Node.js 服务
 
-- [koa]()（Node.js 的 web 开发框架）
+- [koa](https://koajs.com/)（Node.js 的 web 开发框架）
 - [@koa/router](https://github.com/koajs/router)（路由器中间件）
 - [koa-session](https://github.com/koajs/session)（简单会话中间件）
 - [koa-static](https://github.com/koajs/static)（静态文件服务器中间件）
@@ -61,7 +73,8 @@ npm run start
 - [koa-body](https://github.com/koajs/koa-body)（body 解析器中间件）
 - [mongoose](https://mongoosejs.com/docs/4.x/)（NoSql 数据库 Mongodb 的 ORM 框架）
 - [dayjs](https://day.js.org/zh-CN/)（2kB 大小的JavaScript 时间日期库）
-- [nodemailer](https://nodemailer.com/about/  )（让 Node.js 发送 Email 变得简单极了）
+- [bent](https://github.com/mikeal/bent)（适用于 Node.js 和浏览器的函数式 HTTP 客户端）
+- [nodemailer](https://nodemailer.com/about/)（让 Node.js 发送 Email 变得简单极了）
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs)（零依赖的散列密码的库）
 
 ## 功能概览
@@ -86,3 +99,17 @@ npm run start
   - 用户列表
   - 设置管理员
   - 删除用户
+
+### 后续计划
+
+- [ ] Monorepo（支持更多客户端/服务器共存）
+- [ ] 加入 前端框架
+  - [ ] Vue3
+  - [ ] React
+- [ ] 加入 Node.js 框架
+  - [ ]  NestJS
+  - [ ]  Hapi.js
+  - [ ]  Midway.js
+- [ ] 加入 ORM 框架
+  - [ ] prisma
+  - [ ] mikro-orm

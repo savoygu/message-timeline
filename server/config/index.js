@@ -5,7 +5,8 @@ const config = {
   database: {
     host: 'localhost',
     db: 'message-timeline'
-  }
+  },
+  permission: false // 访权问限
 }
 
 module.exports = config
