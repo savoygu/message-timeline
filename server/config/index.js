@@ -6,7 +6,7 @@ const config = {
     host: 'localhost',
     db: 'message-timeline'
   },
-  permission: false // 访权问限
+  permission: 100 // [1, 10] 开启登录访问权限, (10,) 开启管理员访问权限
 }
 
 module.exports = config

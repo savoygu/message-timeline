@@ -201,14 +201,13 @@ module.exports = {
     const { emoji: newEmoji } = ctx.request.body
     const { _id } = newEmoji
     try {
-      let emoji
       if (_id) {
         const oldEmoji = await service.findById(Emoji, _id)
-        emoji = extend(oldEmoji, newEmoji)
+        const emoji = extend(oldEmoji, newEmoji)
+        await emoji.save()
       } else {
-        emoji = await service.create(Emoji, newEmoji)
+        await service.create(Emoji, newEmoji)
       }
-      await emoji.save()
       ctx.redirect('/admin/emojis')
     } catch (e) {
       console.log('更新 Emoji：', e)

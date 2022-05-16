@@ -12,13 +12,20 @@ const dayjs = require('dayjs')
 const router = require('./app/routes')
 
 const config = require('./config') // 应用和数据库配置
-const env = process.env.NODE_ENV || 'development'
+const env = process.env.NODE_ENV || 'production'
 const port = process.env.PORT || config.port || 3000
 
 let dbURL = 'mongodb://127.0.0.1:27017/message-timeline' // 线上地址
-// let dbURL = 'mongodb+srv://savoygu:gPOhQwlFx9qxyhEM@aws-hk.bxj11.mongodb.net/message-timeline?retryWrites=true&w=majority'
 if (env === 'development') {
   dbURL = 'mongodb://' + config.database.host + '/' + config.database.db
+} else if (env === 'heroku') {
+  try {
+    /* eslint-disable */
+    dbURL = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@aws-hk.bxj11.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`
+    /* eslint-disable */
+  } catch (err) {
+    console.error('need config vars!')
+  }
 }
 
 const app = new Koa()

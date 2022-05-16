@@ -24,7 +24,7 @@ block content
               td(class='item-id-' + item._id)
                 if item.role > 10
                   span 管理员
-                else
+                else if user.role > 10
                   button.btn.btn-danger.js-user-setting(type='button', data-id=item._id) 设为管理员
               td
                 button.btn.btn-danger.js-user-del(type='button', data-id=item._id) 删除

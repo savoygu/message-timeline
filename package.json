@@ -5,19 +5,19 @@
   "author": "savoygu",
   "private": true,
   "scripts": {
-    "dev:client": "npm run start --prefix client",
-    "dev:server": "npm run start --prefix server",
-    "start": "npm-run-all -p dev:*",
+    "predev": "npm install",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev": "npm-run-all -p dev:*",
+    "heroku": "npm run deploy --prefix server",
     "build:client": "npm run build --prefix client"
   },
   "devDependencies": {
+    "cnpm": "^8.1.0",
     "npm-run-all": "^4.1.2"
   },
   "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
-  },
-  "dependencies": {
-    "md5": "^2.3.0"
+    "node": ">= 12.0.0",
+    "npm": ">= 6.0.0"
   }
 }

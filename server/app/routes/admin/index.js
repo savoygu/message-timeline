@@ -26,15 +26,15 @@ function adminRouter (router) {
 }
 
 // 权限设置
-if (require('../../../config').permission) {
+const config = require('../../../config')
+if (config.permission > 0) {
   const Permission = require('../../middleware/permission')
   router.use(Permission.signinRequired)
-  router.use(Permission.adminRequired)
+  if (config.permission > 10) router.use(Permission.adminRequired)
 }
 
 router.use(async (ctx, next) => { // 获取 session 中的 user
-  const _user = ctx.session.user
-  ctx.state.user = _user
+  ctx.state.user = ctx.session.user
 
   await next()
 })
