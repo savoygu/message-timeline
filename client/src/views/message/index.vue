@@ -36,6 +36,8 @@
       MtLoading
     },
 
+    inject: ['imgURL'],
+
     data () {
       return {
         pageSize: 0,
@@ -117,9 +119,9 @@
       },
 
       replaceEmoji (emojis, content) {
-        return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
-          let expression = emojis.filter(emoji => emoji.meaning === p)[0].expression
-          return `<img src=${'//message-timeline.gusaifei.com/emoji/' + expression} title=${p} alt=${p}>`
+        return content.replace(/\[q:(.{1,3})\]/g, (match, p, offset, string) => {
+          const expression = emojis.filter(emoji => emoji.meaning === p)[0].expression
+          return `<img src=${this.imgURL + '/emoji/' + expression} title=${p} alt=${p}>`
         })
       }
     },

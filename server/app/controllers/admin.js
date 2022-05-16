@@ -9,12 +9,14 @@ const { getMessages } = require('../service/message')
 const { getEmojis } = require('../service/emoji')
 const sendMail = require('../service/email')
 
+const config = require('../../config')
+
 const FOREVER_LOVE = 1314
 
 function replaceEmoji (emojis, content) {
   return content.replace(/\[q:(.{1,3})\]/g, function (match, p, offset, string) {
     const expression = emojis.filter(emoji => emoji.meaning === p)[0].expression
-    return `<img src=${'//message-timeline.gusaifei.com/emoji/' + expression} title=${p} alt=${p}>`
+    return `<img src=${config.imgURL + '/emoji/' + expression} title=${p} alt=${p}>`
   })
 }
 
@@ -31,7 +33,7 @@ function replaceMailEmoji (emojis, content, attachments) {
     const expression = emojiMap[p]
     attachments.push({
       filename: expression,
-      path: 'http://message-timeline.gusaifei.com/emoji/' + expression,
+      path: config.imgURL + '/emoji/' + expression,
       cid
     })
     return `<img src=${'cid:' + cid} title=${p} alt=${p} style='display: inline; min-height: 1.25rem; vertical-align: middle; margin: 0px 0.3125rem;'>`
@@ -155,7 +157,7 @@ module.exports = {
     try {
       const result = await getEmojis(ctx)
       result.rows = result.rows.map(item => {
-        item.dynamic = `<img src=${'//message-timeline.gusaifei.com/emoji/' + item.expression} title=${item.meaning} alt=${item.meaning}>`
+        item.dynamic = `<img src=${config.imgURL + '/emoji/' + item.expression} title=${item.meaning} alt=${item.meaning}>`
         return item
       })
       await ctx.render('emoji/list', {
@@ -186,7 +188,7 @@ module.exports = {
     try {
       if (id) {
         const emoji = await service.findById(Emoji, id)
-        emoji.dynamic = `<img src=${'//message-timeline.gusaifei.com/emoji/' + emoji.expression} title=${emoji.meaning} alt=${emoji.meaning}>`
+        emoji.dynamic = `<img src=${config.imgURL + '/emoji/' + emoji.expression} title=${emoji.meaning} alt=${emoji.meaning}>`
         await ctx.render('emoji/add', {
           title: '更新 Emoji',
           emoji

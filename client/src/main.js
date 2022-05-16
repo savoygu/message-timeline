@@ -11,6 +11,9 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  provide: {
+    imgURL: '//img.mt.gusaifei.com'
+  },
   router,
   axios,
   render: h => h(App)

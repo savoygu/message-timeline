@@ -121,20 +121,13 @@ npm run dev
 
 ### 项目部署
 
-#### 客户端
+客户端部署在 [netlify](https://app.netlify.com/)，可以通过 [http://mt.gusaifei.com](http://mt.gusaifei.com) 来访问
 
-部署在 [netlify](https://app.netlify.com/)，可以通过 [http://mt.gusaifei.com](http://mt.gusaifei.com) 来访问
+服务器部署在 [heroku](https://www.heroku.com/home)，暂不提供访问地址:)
 
-```
-```
+数据库部署在 [Mongodb Atlas](https://cloud.mongodb.com/)
 
-#### 服务器
-
-部署在
-
-#### 数据库
-
-部署在
+图片存储在 [七牛云](https://portal.qiniu.com/kodo/bucket)
 
 ### 后续计划
 

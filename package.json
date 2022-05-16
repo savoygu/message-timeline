@@ -9,7 +9,7 @@
     "dev:client": "npm run dev --prefix client",
     "dev:server": "npm run dev --prefix server",
     "dev": "npm-run-all -p dev:*",
-    "heroku": "npm run deploy --prefix server",
+    "start": "npm run deploy --prefix server",
     "build:client": "npm run build --prefix client"
   },
   "devDependencies": {
