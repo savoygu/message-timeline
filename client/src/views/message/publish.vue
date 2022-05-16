@@ -29,7 +29,8 @@
                   :key="index"
                   @click="handleEmojiClick(emoji, index)"
                   :title="emoji.meaning">
-                  <img :src="`${imgURL}/emoji/${emoji.expression}`" :alt="emoji.meaning">
+                  <!-- <img :src="`${imgURL}/emoji/${emoji.expression}`" :alt="emoji.meaning"> -->
+                  <img :src="require(`../../assets/emoji/${emoji.expression}`)" :alt="emoji.meaning">
                 </li>
               </ul>
             </div>

@@ -121,7 +121,8 @@
       replaceEmoji (emojis, content) {
         return content.replace(/\[q:(.{1,3})\]/g, (match, p, offset, string) => {
           const expression = emojis.filter(emoji => emoji.meaning === p)[0].expression
-          return `<img src=${this.imgURL + '/emoji/' + expression} title=${p} alt=${p}>`
+          // return `<img src=${this.imgURL + '/emoji/' + expression} title=${p} alt=${p}>`
+          return `<img src=${require('../../assets/emoji/' + expression)} title=${p} alt=${p}>`
         })
       }
     },
