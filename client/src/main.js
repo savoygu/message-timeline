@@ -12,7 +12,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   provide: {
-    imgURL: '//img.mt.gusaifei.com'
+    imgURL: process.env.IMG_URL
   },
   router,
   axios,

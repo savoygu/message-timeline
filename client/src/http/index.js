@@ -4,11 +4,7 @@ import VueAxios from 'vue-axios'
 
 Vue.use(VueAxios, axios)
 
-let baseURL = 'http://localhost:3000/api/v1'
-if (process.env.NODE_ENV === 'production') {
-  baseURL = process.env.BASE_URL
-}
-Vue.axios.defaults.baseURL = baseURL
+Vue.axios.defaults.baseURL = process.env.BASE_URL
 
 export function fetch (url, params = {}) {
   return ajax('get', url, params)
