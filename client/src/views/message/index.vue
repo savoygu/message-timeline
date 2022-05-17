@@ -25,6 +25,7 @@
   import MtPagination from './pagination.vue'
   import { fetch } from '@/http'
   import { timeAgo } from '@/utils/date'
+  import emojis from '@/utils/emoji'
 
   export default {
     name: 'MtMessage',
@@ -128,6 +129,9 @@
     },
 
     created () {
+      // 网络原因：使用本地 emojis 数据
+      this.emojis = emojis
+
       this.getMessages()
     }
   }
