@@ -1,0 +1,51 @@
+name: deploy-gitee-pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checks-out repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
+
+      - name: Install dependencies
+        run: |
+          cd client
+          npm install
+
+      - name: Build
+        run: VUE_APP_BASE_URL=$BASE_URL VUE_APP_IMG_URL=$IMG_URL npm run build
+        env: 
+          BASE_URL: ${{ secrets.BASE_URL }}
+          IMG_URL: ${{ secrets.IMG_URL }}
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+  deploy: 
+    needs: [ build ]
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Download dist
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+
+
