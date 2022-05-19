@@ -2,15 +2,11 @@
   <div class="mt-publish">
     <div class="mt-publish__header">
       <h3 class="mt-publish__title">说点什么吧~</h3>
-      <span class="mt-publish__message">共 <strong class="mt-publish_count">{{totalPage}}</strong> 条留言</span>
-      <div class="mt-publish__notice"><mt-switch
-        off-lever-color="#fdfdfd"
-        on-lever-color="#6bc30d"
-        off-bg-color="#fdfdfd"
-        on-bg-color="#fdfdfd"
-        off-color="#6bc30d"
-        on-color="#6bc30d"
-        v-model="notice">回复邮件时通知我</mt-switch></div>
+      <span class="mt-publish__message">共 <strong class="mt-publish_count">{{ totalCount }}</strong> 条留言</span>
+      <div class="mt-publish__notice">
+        <mt-switch off-lever-color="#fdfdfd" on-lever-color="#6bc30d" off-bg-color="#fdfdfd" on-bg-color="#fdfdfd"
+          off-color="#6bc30d" on-color="#6bc30d" v-model="notice">回复邮件时通知我</mt-switch>
+      </div>
     </div>
     <div class="mt-publish__form">
       <div class="mt-publish__writing">
@@ -19,16 +15,13 @@
       <div class="mt-publish__footer">
         <div class="mt-publish__emoji">
           <div class="mt-dropdown">
-            <div class="mt-dropdown__toggle" :class="{'active': open}" @click="open = !open">
+            <div class="mt-dropdown__toggle" :class="{ 'active': open }" @click="open = !open">
               <i class="mt-dropdown__icon tm-icon-smile"></i>
             </div>
-            <div class="mt-dropdown__body" :class="{'is-open': open}">
+            <div class="mt-dropdown__body" :class="{ 'is-open': open }">
               <ul class="mt-dropdown__emojis">
-                <li class="mt-dropdown__emoji"
-                  v-for="(emoji, index) in emojis"
-                  :key="index"
-                  @click="handleEmojiClick(emoji, index)"
-                  :title="emoji.meaning">
+                <li class="mt-dropdown__emoji" v-for="(emoji, index) in emojis" :key="index"
+                  @click="handleEmojiClick(emoji, index)" :title="emoji.meaning">
                   <!-- <img :src="`${imgURL}/emoji/${emoji.expression}`" :alt="emoji.meaning"> -->
                   <img :src="require(`../../assets/emoji/${emoji.expression}`)" :alt="emoji.meaning">
                 </li>
@@ -38,23 +31,17 @@
         </div>
         <div class="mt-publish__fields">
           <label class="mt-publish__field mo-tipsy--top-left" data-tipsy="必填：怎么称呼您？">
-            <input v-model="nickname"
-              name="nickname"
-              type="text"
-              class="mt-publish__control"
-              maxlength="40"
+            <input v-model="nickname" name="nickname" type="text" class="mt-publish__control" maxlength="40"
               placeholder="个性昵称">
           </label>
           <label class="mt-publish__field mo-tipsy--top-left" data-tipsy="必填：用于获取头像和联系您">
-            <input v-model="email"
-              name="email"
-              type="text"
-              class="mt-publish__control"
-              maxlength="40"
+            <input v-model="email" name="email" type="text" class="mt-publish__control" maxlength="40"
               placeholder="电子邮箱">
           </label>
           <label class="mt-publish__field">
-            <button class="mt-publish__btn" :class="{'is-disabled': validateMsg}" @click="publishMessage">{{ publishing ? '发布中..' : '发布' }}</button>
+            <button class="mt-publish__btn" :class="{ 'is-disabled': validateMsg }" @click="publishMessage">{{ publishing
+                ? '发布中..' : '发布'
+            }}</button>
           </label>
         </div>
       </div>
@@ -72,7 +59,7 @@ export default {
   name: 'MtPublish',
 
   props: {
-    totalPage: Number,
+    totalCount: Number,
     emojis: {
       type: Array,
       default: () => []
@@ -154,6 +141,7 @@ export default {
 
 <style lang="postcss">
 @import "../../styles/postcss/publish.css";
+
 @component-namespace mt {
   @b publish {
 
@@ -161,6 +149,7 @@ export default {
       float: left;
     }
   }
+
   @b dropdown {
     position: relative;
 
@@ -189,7 +178,7 @@ export default {
       margin: .125rem 0 0;
       text-align: left;
       background-color: #fff;
-      box-shadow: 0 1px 6px rgba(0,0,0,.12), 0 1px 4px rgba(0,0,0,.12);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, .12), 0 1px 4px rgba(0, 0, 0, .12);
       transition: all .3s;
 
       @when open {

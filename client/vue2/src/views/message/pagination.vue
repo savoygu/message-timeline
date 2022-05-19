@@ -43,7 +43,7 @@
       {{pager}}
     </li>
     <li class="mt-pagination__item"
-        :class="{'is-disabled': pageSize === currentPage}"
+        :class="{'is-disabled': totalPage === currentPage}"
         @click="setCurrentPage('next')">
       <slot name="next">
         <i class="tm-icon-arrow_right"></i>
@@ -58,7 +58,7 @@
 
     props: {
       currentPage: Number,
-      pageSize: Number,
+      totalPage: Number,
       pageRange: {
         type: Number,
         default: 5
@@ -89,23 +89,23 @@
         const pageRange = Number(this.pageRange)
         const edgePages = Number(this.edgePages)
         const currentPage = Number(this.currentPage)
-        const pageSize = Number(this.pageSize)
+        const totalPage = Number(this.totalPage)
         const pagerCount = pageRange + edgePages * 2
         let showPrevMore = false
         let showNextMore = false
-        if (pageSize > pagerCount) {
+        if (totalPage > pagerCount) {
           const half = Math.ceil(pagerCount / 2) - 1
           if (currentPage > pagerCount - half) {
             showPrevMore = true
           }
-          if (currentPage < pageSize - half) {
+          if (currentPage < totalPage - half) {
             showNextMore = true
           }
         }
         const pages = []
         if (showPrevMore && !showNextMore) {
-          const startPage = pageSize - (pagerCount - 2)
-          for (let i = startPage + 1; i <= pageSize - edgePages; i++) {
+          const startPage = totalPage - (pagerCount - 2)
+          for (let i = startPage + 1; i <= totalPage - edgePages; i++) {
             pages.push(i)
           }
         } else if (!showPrevMore && showNextMore) {
@@ -121,7 +121,7 @@
             pages.push(i)
           }
         } else {
-          for (let i = edgePages + 1; i <= pageSize - edgePages; i++) {
+          for (let i = edgePages + 1; i <= totalPage - edgePages; i++) {
             pages.push(i)
           }
         }
@@ -131,10 +131,10 @@
       },
       leftPagers () {
         const edgePages = this.edgePages
-        const pageSize = this.pageSize
+        const totalPage = this.totalPage
         const pages = []
-        if (pageSize < edgePages) {
-          for (let i = 1; i <= pageSize; i++) {
+        if (totalPage < edgePages) {
+          for (let i = 1; i <= totalPage; i++) {
             pages.push(i)
           }
         } else {
@@ -146,14 +146,14 @@
       },
       rightPagers () {
         const edgePages = this.edgePages
-        const pageSize = this.pageSize
+        const totalPage = this.totalPage
         const pages = []
-        if (pageSize < edgePages * 2) {
-          for (let i = edgePages + 1; i <= pageSize; i++) {
+        if (totalPage < edgePages * 2) {
+          for (let i = edgePages + 1; i <= totalPage; i++) {
             pages.push(i)
           }
         } else {
-          for (let i = pageSize - edgePages + 1; i <= pageSize; i++) {
+          for (let i = totalPage - edgePages + 1; i <= totalPage; i++) {
             pages.push(i)
           }
         }
@@ -164,7 +164,7 @@
       setCurrentPage (pager) {
         let newPage = this.currentPage
         const pageRange = this.pageRange
-        if (typeof pager === 'string' && isNaN(Number(pager))) { // 如果是 < 或 > 或 ...
+        if (['prev', 'next', 'prevMore', 'nextMore'].includes(pager)) { // 如果是 < 或 > 或 ...
           switch (pager) {
             case 'prev':
               newPage--
@@ -182,15 +182,12 @@
               break
           }
         } else {
-          newPage = Number(pager)
+          newPage = pager
         }
-        if (!isNaN(newPage)) {
-          if (newPage < 1) {
-            newPage = 1
-          }
-          if (newPage > this.pageSize) {
-            newPage = this.pageSize
-          }
+        if (newPage < 1) {
+          newPage = 1
+        } else if (newPage > this.totalPage) {
+          newPage = this.totalPage
         }
         if (newPage !== this.currentPage) {
           this.$emit('change', newPage)

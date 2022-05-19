@@ -1,13 +1,13 @@
 <template>
   <div class="mt-message">
-    <mt-publish :total-page="totalPage" :emojis="emojis" @publish="handlePublish"></mt-publish>
+    <mt-publish :total-count="totalCount" :emojis="emojis" @publish="handlePublish"></mt-publish>
     <template v-if="!loading">
       <template v-if="messages.length > 0">
-        <mt-timeline :messages="messages" :total-page="totalPage"
+        <mt-timeline :messages="messages" :total-count="totalCount"
                   :current-page="currentPage">
         </mt-timeline>
         <div class="mt-message__pagination">
-          <mt-pagination :page-size="pageSize" :current-page="currentPage" @change="handlePageChange"></mt-pagination>
+          <mt-pagination :total-page="totalPage" :current-page="currentPage" @change="handlePageChange"></mt-pagination>
         </div>
       </template>
       <p v-else class="mt-message__empty">开始你的第一次留言吧！</p>
@@ -27,6 +27,8 @@
   import { timeAgo } from '@/utils/date'
   import emojis from '@/utils/emoji'
 
+  const PAGE_SIZE = 1
+
   export default {
     name: 'MtMessage',
 
@@ -39,15 +41,19 @@
 
     inject: ['imgURL'],
 
+    provide: {
+      PAGE_SIZE
+    },
+
     data () {
+      this.effect = Math.ceil(Math.random() * 10)
+
       return {
-        pageSize: 0,
-        currentPage: 1,
         totalPage: 0,
+        currentPage: 1,
+        totalCount: 0,
         messages: [],
-        loading: false,
-        effect: Math.ceil(Math.random() * 10),
-        emojis: []
+        loading: false
       }
     },
 
@@ -59,10 +65,7 @@
           message.location = province + (province === city ? '' : ' · ' + city)
         }
         this.messages.unshift(message)
-        this.totalPage++
-        this.$nextTick(_ => {
-          this.$children.filter(_ => _.$options.name === 'MtTimeline')[0].waterfall()
-        })
+        this.totalCount++
       },
 
       handlePageChange (page) {
@@ -77,12 +80,12 @@
         }
         try {
           const res = await fetch('/messages', {
-            page_size: 32,
+            page_size: PAGE_SIZE,
             current: this.currentPage
           })
           if (res.code === '01') {
             const { count, rows } = res.result
-            this.totalPage = count
+            this.totalCount = count
             this.messages = rows.map(item => {
               if (!item.content) return item
               item.content = this.replaceEmoji(this.emojis, item.content)
@@ -98,12 +101,7 @@
               }
               return item
             })
-            this.pageSize = Math.ceil(this.totalPage / 32)
-            this.$nextTick(_ => {
-              if (this.messages.length > 0) {
-                this.$children.filter(_ => _.$options.name === 'MtTimeline')[0].waterfall()
-              }
-            })
+            this.totalPage = Math.ceil(count / PAGE_SIZE)
           }
         } catch (err) {
           console.log('[get messages]: ', err)
