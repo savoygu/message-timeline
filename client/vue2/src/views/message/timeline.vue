@@ -76,7 +76,7 @@ export default {
           colsHeight.push(boxes[i].offsetHeight + 20)
           if (i === 1) addClass(boxes[i], 'is-right')
         } else {
-          const minColHeight = Math.min.apply(null, colsHeight)
+          const minColHeight = Math.min(...colsHeight)
           const minColIndex = colsHeight.indexOf(minColHeight)
           boxes[i].style.position = 'absolute'
           boxes[i].style.top = minColHeight + 'px'
@@ -89,7 +89,7 @@ export default {
           colsHeight[minColIndex] += boxes[i].offsetHeight
         }
       }
-      timeline.style.height = Math.max.apply(null, colsHeight) + 'px'
+      timeline.style.height = Math.max(...colsHeight) + 'px'
     }
   },
 

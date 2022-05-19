@@ -15,7 +15,7 @@ export const formatDate = (date, format) => {
   for (const key in dateMap) {
     if (new RegExp('(' + key + ')').test(format)) {
       format = format.replace(RegExp.$1, RegExp.$1.length === 1
-        ? date[key] : ('00' + date[key]).substr(('' + date[key]).length))
+        ? dateMap[key] : ('00' + dateMap[key]).substr(('' + dateMap[key]).length))
     }
   }
   return format

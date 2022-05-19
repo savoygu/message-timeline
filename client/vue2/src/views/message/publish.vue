@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-publish">
+  <div class="mt-publish" ref="publish">
     <div class="mt-publish__header">
       <h3 class="mt-publish__title">说点什么吧~</h3>
       <span class="mt-publish__message">共 <strong class="mt-publish_count">{{ totalCount }}</strong> 条留言</span>
@@ -39,20 +39,19 @@
               placeholder="电子邮箱">
           </label>
           <label class="mt-publish__field">
-            <button class="mt-publish__btn" :class="{ 'is-disabled': validateMsg }" @click="publishMessage">{{ publishing
+            <button class="mt-publish__btn" :class="{ 'is-disabled': !!errorTip }" @click="publishMessage">{{ publishing
                 ? '发布中..' : '发布'
             }}</button>
           </label>
         </div>
       </div>
     </div>
-    <mt-toast ref="tip" :text="validateMsg" v-model="showToast" :duration="2000"></mt-toast>
   </div>
 </template>
 
 <script>
 import { post } from '@/http'
-import MtToast from '../../components/toast.vue'
+import MtToast from '../../components/toast/toast.vue'
 import MtSwitch from '../../components/switch.vue'
 
 export default {
@@ -73,12 +72,12 @@ export default {
     MtSwitch
   },
 
-  data () {
+  data() {
     return {
       content: '',
       nickname: '',
       email: '',
-      showToast: false,
+      show: false,
       notice: true,
       open: false,
       publishing: false
@@ -86,7 +85,7 @@ export default {
   },
 
   computed: {
-    validateMsg () {
+    errorTip() {
       return this.validateContent(this.content) ||
         this.validateNickname(this.nickname) ||
         this.validateEmail(this.email) || ''
@@ -94,22 +93,22 @@ export default {
   },
 
   methods: {
-    validateContent (val) {
+    validateContent(val) {
       if (!val) return '内容不能为空'
       if (val.length > 100) return '内容长度不能超过100字'
     },
-    validateNickname (val) {
+    validateNickname(val) {
       if (!val) return '个性昵称不能为空'
       if (val.length < 1 || val.length > 18) return '个性昵称长度只能在1~18之间'
     },
-    validateEmail (val) {
+    validateEmail(val) {
       if (!val) return '电子邮箱不能为空'
       if (!/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(val)) return '电子邮箱格式不正确'
     },
 
-    async publishMessage () {
-      if (this.validateMsg) {
-        this.showToast = true
+    async publishMessage() {
+      if (this.errorTip) {
+        this.$toast({ text: this.errorTip, appendTo: this.$refs.publish })
         return
       }
       try {
@@ -131,7 +130,7 @@ export default {
       }
     },
 
-    handleEmojiClick (emoji, index) {
+    handleEmojiClick(emoji, index) {
       this.content += `[q:${emoji.meaning}]`
       this.open = false
     }

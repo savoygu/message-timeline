@@ -27,7 +27,7 @@
   import { timeAgo } from '@/utils/date'
   import emojis from '@/utils/emoji'
 
-  const PAGE_SIZE = 1
+  const PAGE_SIZE = 32
 
   export default {
     name: 'MtMessage',

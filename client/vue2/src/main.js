@@ -4,7 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from './http'
+import Toast from './components/toast'
 import '@/styles/postcss/index.css'
+
+Vue.use(Toast)
 
 Vue.config.productionTip = false
 

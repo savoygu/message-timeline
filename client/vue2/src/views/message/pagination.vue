@@ -86,10 +86,7 @@
     },
     computed: {
       pagers () {
-        const pageRange = Number(this.pageRange)
-        const edgePages = Number(this.edgePages)
-        const currentPage = Number(this.currentPage)
-        const totalPage = Number(this.totalPage)
+        const { currentPage, totalPage, pageRange, edgePages } = this
         const pagerCount = pageRange + edgePages * 2
         let showPrevMore = false
         let showNextMore = false
@@ -130,8 +127,7 @@
         return pages
       },
       leftPagers () {
-        const edgePages = this.edgePages
-        const totalPage = this.totalPage
+        const { totalPage, edgePages } = this
         const pages = []
         if (totalPage < edgePages) {
           for (let i = 1; i <= totalPage; i++) {
@@ -145,8 +141,7 @@
         return pages
       },
       rightPagers () {
-        const edgePages = this.edgePages
-        const totalPage = this.totalPage
+        const { totalPage, edgePages } = this
         const pages = []
         if (totalPage < edgePages * 2) {
           for (let i = edgePages + 1; i <= totalPage; i++) {
@@ -162,35 +157,32 @@
     },
     methods: {
       setCurrentPage (pager) {
-        let newPage = this.currentPage
-        const pageRange = this.pageRange
-        if (['prev', 'next', 'prevMore', 'nextMore'].includes(pager)) { // 如果是 < 或 > 或 ...
-          switch (pager) {
-            case 'prev':
-              newPage--
-              break
-            case 'next':
-              newPage++
-              break
-            case 'prevMore':
-              newPage -= pageRange
-              break
-            case 'nextMore':
-              newPage += pageRange
-              break
-            default:
-              break
-          }
-        } else {
-          newPage = pager
+        const { currentPage, totalPage, pageRange } = this
+        let page = currentPage
+        // 如果是 < 或 > 或 ...
+        switch (pager) {
+          case 'prev':
+            page--
+            break
+          case 'next':
+            page++
+            break
+          case 'prevMore':
+            page -= pageRange
+            break
+          case 'nextMore':
+            page += pageRange
+            break
+          default:
+            page = pager
         }
-        if (newPage < 1) {
-          newPage = 1
-        } else if (newPage > this.totalPage) {
-          newPage = this.totalPage
+        if (page < 1) {
+          page = 1
+        } else if (page > totalPage) {
+          page = totalPage
         }
-        if (newPage !== this.currentPage) {
-          this.$emit('change', newPage)
+        if (page !== currentPage) {
+          this.$emit('change', page)
         }
       }
     }
