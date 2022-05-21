@@ -1,0 +1,197 @@
+@include b(mt-timeline) {
+  position: relative;
+  padding: 1.25rem 0;
+  overflow: hidden;
+  // @util clearfix;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: .25rem;
+    margin-left: -.125rem;
+    background-color: #dededd;
+  }
+
+  @include e(box) {
+    float: left;
+    width: 50%;
+    padding-right: 4rem;
+    padding-bottom: 1.25rem;
+    box-sizing: border-box;
+
+    @include is(right) {
+      padding-right: 0;
+      left: 50%;
+      padding-left: 4rem;
+
+      .mt-timeline__message {
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 3rem;
+          left: -2rem;
+          @util triangle(1rem, white, left);
+          border-left: 1rem solid transparent;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 3.625rem;
+          left: -4.375rem;
+          width: .75rem;
+          height: .75rem;
+          background-color: #6bc30d;
+          border-radius: 50%;
+          box-shadow: 0 0 0 0.25rem #fff;
+        }
+      }
+    }
+  }
+
+  @include e(message) {
+    position: relative;
+    padding: 1.25rem;
+    background-color: white;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 3rem;
+      right: -1rem;
+      @util triangle(1rem, white, right);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 3.625rem;
+      right: -4.375rem;
+      width: .75rem;
+      height: .75rem;
+      background-color: #6bc30d;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0.25rem #fff;
+    }
+  }
+
+  @include e(title) {
+    font-size: .8125rem;
+    color: #9c9d9b;
+    @util clearfix;
+  }
+
+  @include e(nickname) {
+    float: left;
+    max-width: 50%;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6bc30d;
+    text-transform: uppercase;
+    @util truncate;
+  }
+
+  @include e(info) {
+    float: right;
+  }
+
+  @include e(content) {
+    margin: 1rem 0;
+
+    img {
+      display: inline;
+      margin: 0 .3125rem;
+      min-height: 1.25rem;
+      vertical-align: middle;
+      border: none;
+    }
+  }
+
+  @include e(position) {
+    font-size: .8125rem;
+    color: #9c9d9b;
+  }
+
+  @include e(reply) {
+    margin-top: .5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dededd;
+    color: #80817f;
+  }
+
+  @include e(reply-text) {
+    font-weight: 500;
+    color: #181817;
+  }
+
+  @include e(reply-content) {
+
+    img {
+      display: inline;
+      min-height: 1.25rem;
+      vertical-align: middle;
+      margin: 0px 0.3125rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  @include b(mt-timeline) {
+    @include e(box) {
+      padding-right: 2.5rem;
+
+      @include is(right) {
+        padding-left: 2.5rem;
+
+        .mt-timeline__message {
+          &::after {
+            left: -2.785rem;
+          }
+        }
+      }
+    }
+
+    @include e(message) {
+      &::after {
+        right: -2.875rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  @include b(mt-timeline) {
+    &::before {
+      display: none;
+    }
+
+    @include e(box) {
+      width: 100%;
+      padding-right: 0;
+
+      @include is(right) {
+        left: 0;
+        padding-left: 0;
+
+        .mt-timeline__message {
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+
+    @include e(message) {
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

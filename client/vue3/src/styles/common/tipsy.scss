@@ -1,0 +1,242 @@
+/*!
+ * tipsy.css v1.0.0
+ * smohan https://smohan.im
+ * The MIT License (MIT)
+ * https://github.com/S-mohan/tipsy
+ */
+ [class^="mo-tipsy--"], [class*=" mo-tipsy--"] {
+  position: relative;
+  overflow: visible;
+}
+
+[class^="mo-tipsy--"]:before, [class^="mo-tipsy--"]:after, [class*=" mo-tipsy--"]:before, [class*=" mo-tipsy--"]:after {
+  position: absolute;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.18s ease-out 0.18s;
+  transition: all 0.18s ease-out 0.18s;
+  z-index: 10;
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  box-sizing: border-box;
+  visibility: hidden;
+}
+
+[class^="mo-tipsy--"]:before, [class*=" mo-tipsy--"]:before {
+  content: '';
+  background: transparent;
+  border: 6px solid transparent;
+}
+
+[class^="mo-tipsy--"]:after, [class*=" mo-tipsy--"]:after {
+  background-color: rgba(17, 17, 17, 0.9);
+  border-radius: 1px;
+  color: #fff;
+  content: attr(data-tipsy);
+  font-size: 12px;
+  margin: 0;
+  padding: 8px 10px;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+}
+
+[class^="mo-tipsy--"]:hover:before, [class^="mo-tipsy--"]:hover:after, [class*=" mo-tipsy--"]:hover:before, [class*=" mo-tipsy--"]:hover:after {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mo-tipsy:before, .mo-tipsy:after, .mo-tipsy--top:before, .mo-tipsy--top:after {
+  left: 50%;
+  bottom: 100%;
+  -webkit-transform: translate3d(-50%, 10px, 0);
+          transform: translate3d(-50%, 10px, 0);
+}
+
+.mo-tipsy:before, .mo-tipsy--top:before {
+  margin-bottom: -1px;
+  border-top-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy:after, .mo-tipsy--top:after {
+  margin-bottom: 11px;
+}
+
+.mo-tipsy:hover:before, .mo-tipsy:hover:after, .mo-tipsy--top:hover:before, .mo-tipsy--top:hover:after {
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+
+.mo-tipsy--bottom:before, .mo-tipsy--bottom:after {
+  left: 50%;
+  top: 100%;
+  -webkit-transform: translate3d(-50%, -10px, 0);
+          transform: translate3d(-50%, -10px, 0);
+}
+
+.mo-tipsy--bottom:before {
+  margin-top: -1px;
+  border-bottom-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--bottom:after {
+  margin-top: 11px;
+}
+
+.mo-tipsy--bottom:hover:before, .mo-tipsy--bottom:hover:after {
+  -webkit-transform: translate3d(-50%, 0, 0);
+          transform: translate3d(-50%, 0, 0);
+}
+
+.mo-tipsy--left:before, .mo-tipsy--left:after {
+  right: 100%;
+  top: 50%;
+  -webkit-transform: translate3d(10px, -50%, 0);
+          transform: translate3d(10px, -50%, 0);
+}
+
+.mo-tipsy--left:before {
+  margin-right: -1px;
+  border-left-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--left:after {
+  margin-right: 11px;
+}
+
+.mo-tipsy--left:hover:before, .mo-tipsy--left:hover:after {
+  -webkit-transform: translate3d(0, -50%, 0);
+          transform: translate3d(0, -50%, 0);
+}
+
+.mo-tipsy--right:before, .mo-tipsy--right:after {
+  left: 100%;
+  top: 50%;
+  -webkit-transform: translate3d(-10px, -50%, 0);
+          transform: translate3d(-10px, -50%, 0);
+}
+
+.mo-tipsy--right:before {
+  margin-left: -1px;
+  border-right-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--right:after {
+  margin-left: 11px;
+}
+
+.mo-tipsy--right:hover:before, .mo-tipsy--right:hover:after {
+  -webkit-transform: translate3d(0, -50%, 0);
+          transform: translate3d(0, -50%, 0);
+}
+
+.mo-tipsy--top-left:before, .mo-tipsy--top-left:after {
+  left: 0;
+  bottom: 100%;
+  -webkit-transform: translate3d(0, 10px, 0);
+          transform: translate3d(0, 10px, 0);
+}
+
+.mo-tipsy--top-left:before {
+  margin-left: 6px;
+  margin-bottom: -1px;
+  border-top-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--top-left:after {
+  margin-bottom: 11px;
+}
+
+.mo-tipsy--top-left:hover:before, .mo-tipsy--top-left:hover:after {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.mo-tipsy--top-right:before, .mo-tipsy--top-right:after {
+  right: 0;
+  bottom: 100%;
+  -webkit-transform: translate3d(0, -10px, 0);
+          transform: translate3d(0, -10px, 0);
+}
+
+.mo-tipsy--top-right:before {
+  margin-right: 6px;
+  margin-bottom: -1px;
+  border-top-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--top-right:after {
+  margin-bottom: 11px;
+}
+
+.mo-tipsy--top-right:hover:before, .mo-tipsy--top-right:hover:after {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.mo-tipsy--bottom-right:before, .mo-tipsy--bottom-right:after {
+  right: 0;
+  top: 100%;
+  -webkit-transform: translate3d(0, -10px, 0);
+          transform: translate3d(0, -10px, 0);
+}
+
+.mo-tipsy--bottom-right:before {
+  margin-right: 6px;
+  margin-top: -1px;
+  border-bottom-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--bottom-right:after {
+  margin-top: 11px;
+}
+
+.mo-tipsy--bottom-right:hover:before, .mo-tipsy--bottom-right:hover:after {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.mo-tipsy--bottom-left:before, .mo-tipsy--bottom-left:after {
+  left: 0;
+  top: 100%;
+  -webkit-transform: translate3d(0, 10px, 0);
+          transform: translate3d(0, 10px, 0);
+}
+
+.mo-tipsy--bottom-left:before {
+  margin-left: 6px;
+  margin-top: -1px;
+  border-bottom-color: rgba(17, 17, 17, 0.9);
+}
+
+.mo-tipsy--bottom-left:after {
+  margin-top: 11px;
+}
+
+.mo-tipsy--bottom-left:hover:before, .mo-tipsy--bottom-left:hover:after {
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+
+.mo-tipsy--small:after, .mo-tipsy--medium:after, .mo-tipsy--large:after {
+  white-space: normal;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.mo-tipsy--small:after {
+  width: 80px;
+}
+
+.mo-tipsy--medium:after {
+  width: 160px;
+}
+
+.mo-tipsy--large:after {
+  width: 260px;
+  max-width: 90vw;
+}

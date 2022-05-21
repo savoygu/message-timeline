@@ -1,0 +1,62 @@
+@include b(mt-pagination) {
+  display: inline-flex;
+  flex-wrap: wrap;
+
+  @include e(item) {
+    display: flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-right: .5rem;
+    padding: .3125rem;
+    color: #535557;
+    text-align: center;
+    background-color: white;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+        color: #6bc30d;
+        box-shadow: 0 1px 6px rgba(0,0,0,.12), 0 1px 4px rgba(0,0,0,.12);
+    }
+
+    @include is(active) {
+      background-color: #6bc30d;
+      border-color: #6bc30d;
+      color: white;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    @include is(disabled) {
+      cursor: not-allowed;
+      opacity: .75;
+      box-shadow: none;
+    }
+  }
+
+  @include e(icon) {
+    &.mt-icon-db-arrow_right,
+    &.mt-icon-db-arrow_left {
+        color: #6bc30d;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  @include b(pagination) {
+
+    @include e(item) {
+      margin: 0 .25rem 0 0;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

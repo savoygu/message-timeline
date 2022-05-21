@@ -63,12 +63,28 @@ npm run dev
 
 #### 客户端
 
+##### Vue2 技术栈
+
 基于 Vue.js 2.x 版本来开发
 
 - [vue.js](https://cn.vuejs.org/index.html)（渐进式 JavaScript 框架）
 - [vue-router](https://v3.router.vuejs.org/zh/installation.html)（Vue.js 官方路由）
 - [axios](https://axios-http.com/docs/intro)（基于 Promise 的 HTTP 客户端）
 - [postcss](https://postcss.org/)（使用 JS 插件转换样式的工具）
+- [postcss-salad](https://github.com/ElemeFE/postcss-salad)（能够帮助你写出更加简洁、优雅的CSS的样式解决方案）
+
+##### Vue3 技术栈
+
+基于 Vue.js 3.x 版本来开发
+
+- [vue.js](https://v3.cn.vuejs.org/)（渐进式 JavaScript 框架）
+- [typescript](https://www.typescriptlang.org/)（基于 JavaScript 的强类型编程语言）
+- [axios](https://axios-http.com/docs/intro)（基于 Promise 的 HTTP 客户端）
+- [sass](https://postcss.org/)（CSS 预处理器）
+- [sass-bem](https://github.com/zgabievi/sass-bem)（基于 sass 来编写 BEM 风格样式的包）
+- [postcss](https://postcss.org/)（使用 JS 插件转换样式的工具）
+- [postcss-utility](https://ismamz.github.io/postcss-utilities/)（postcss插件，拥有最常用的mixin、快捷方式和辅助函数）
+- [vite](https://cn.vitejs.dev/)（下一代前端开发与构建工具）
 
 #### 服务端
 
@@ -131,9 +147,9 @@ npm run dev
 
 ### 后续计划
 
-- [ ] Monorepo（支持更多客户端/服务器共存）
+- [x] Monorepo（支持更多客户端/服务器共存）
 - [ ] 加入 前端框架
-  - [ ] Vue3
+  - [x] Vue3
   - [ ] React
 - [ ] 加入 Node.js 框架
   - [ ]  NestJS

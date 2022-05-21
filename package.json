@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "predev": "npm install",
-    "dev:client": "npm run dev --prefix client",
+    "dev:client": "npm run dev --prefix client/vue3",
     "dev:server": "npm run dev --prefix server",
     "dev": "npm-run-all -p dev:*",
     "start": "npm run deploy --prefix server",
