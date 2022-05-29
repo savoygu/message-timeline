@@ -10,7 +10,7 @@
     "dev:server": "npm run dev --prefix server",
     "dev": "npm-run-all -p dev:*",
     "start": "npm run deploy --prefix server",
-    "build:client": "npm run build --prefix client"
+    "build:client": "npm run build --prefix client/vue3"
   },
   "devDependencies": {
     "cnpm": "^8.1.0",
