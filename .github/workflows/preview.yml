@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Sync Gitee
-        uses: shanghaobo/github-branch-gitee@master
+        uses: shanghaobo/github-branch-gitee@v1.0.0
         with:
           github_repo: savoygu/message-timeline
           github_branch: gh-pages
@@ -48,7 +48,7 @@ jobs:
           gitee_branch: master
           username: ${{secrets.GITEE_USERNAME}}
           password: ${{secrets.GITEE_PASSWORD}}
-      - name: Build Gitee Pages
+      - name: Deploy Gitee Pages
         uses: yanglbme/gitee-pages-action@main
         with:
           gitee-username: ${{secrets.GITEE_USERNAME}}
