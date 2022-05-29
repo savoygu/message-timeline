@@ -60,20 +60,6 @@ const switchStyle = computed(() => {
 </template>
 
 <style lang="scss">
-@mixin on-off {
-  position: absolute;
-  top: 0px;
-  display: inline-block;
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
-  font-size: 12px;
-  text-align: center;
-  border-radius: 50%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-  transition: all .35s cubic-bezier(.45, 1, .4, 1);
-}
-
 @include b(mt-switch) {
   display: inline-block;
 
@@ -143,15 +129,19 @@ const switchStyle = computed(() => {
     font-size: 14px;
   }
 
-  @include e(on) {
-    @include on-off();
+  @include parse('e:on', 'e:off') {
+    position: absolute;
+    top: 0px;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+    transition: all .35s cubic-bezier(.45, 1, .4, 1);
   }
-
-  @include e(off) {
-    @include on-off();
-  }
-
-  // @include parse('e:on', 'e:off') {}
 
   @include e(on) {
     left: 0px;

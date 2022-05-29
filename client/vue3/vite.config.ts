@@ -8,7 +8,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "./node_modules/sass-bem/_bem.scss";`
+        additionalData: `@import "./node_modules/sass-bem-next/_bem.scss";`
       }
     },
     postcss: {
