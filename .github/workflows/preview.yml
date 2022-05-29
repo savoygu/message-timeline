@@ -44,8 +44,8 @@ jobs:
         with:
           github_repo: savoygu/message-timeline
           github_branch: gh-pages
-          gitee_repo: gusaifei/message-timeline-gh-pages
-          gitee_branch: master
+          gitee_repo: ${{secrets.GITEE_USERNAME}}/message-timeline-gh-pages
+          gitee_branch: gh-pages
           username: ${{secrets.GITEE_USERNAME}}
           password: ${{secrets.GITEE_PASSWORD}}
       - name: Deploy Gitee Pages
@@ -53,5 +53,5 @@ jobs:
         with:
           gitee-username: ${{secrets.GITEE_USERNAME}}
           gitee-password: ${{secrets.GITEE_PASSWORD}}
-          gitee-repo: gusaifei/message-timeline-gh-pages
-          branch: master
+          gitee-repo: ${{secrets.GITEE_USERNAME}}/message-timeline-gh-pages
+          branch: gh-pages
