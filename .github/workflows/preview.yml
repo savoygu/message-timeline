@@ -27,7 +27,7 @@ jobs:
         run: |
           cd ${{secrets.CLIENT}}
           npm install
-          VUE_APP_BASE_URL=${{secrets.BASE_URL}} VUE_APP_IMG_URL=${{secrets.IMG_URL}} npm run build
+          VUE_APP_BASE_URL=${{secrets.BASE_URL}} VUE_APP_IMG_URL=${{secrets.IMG_URL}} npm run build:gh-pages
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
@@ -44,7 +44,7 @@ jobs:
         with:
           github_repo: savoygu/message-timeline
           github_branch: gh-pages
-          gitee_repo: ${{secrets.GITEE_USERNAME}}/message-timeline-gh-pages
+          gitee_repo: ${{secrets.GITEE_USERNAME}}/message-timeline
           gitee_branch: gh-pages
           username: ${{secrets.GITEE_USERNAME}}
           password: ${{secrets.GITEE_PASSWORD}}
@@ -53,5 +53,5 @@ jobs:
         with:
           gitee-username: ${{secrets.GITEE_USERNAME}}
           gitee-password: ${{secrets.GITEE_PASSWORD}}
-          gitee-repo: ${{secrets.GITEE_USERNAME}}/message-timeline-gh-pages
+          gitee-repo: ${{secrets.GITEE_USERNAME}}/message-timeline
           branch: gh-pages

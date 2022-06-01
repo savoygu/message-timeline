@@ -7,7 +7,7 @@ interface ToastProps {
   appendTo?: HTMLElement
 }
 
-let timer: number | undefined
+let timer: NodeJS.Timeout | number | undefined
 let toastInstance: App
 let mountNode: HTMLElement
 
