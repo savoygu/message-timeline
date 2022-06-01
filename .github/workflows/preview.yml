@@ -27,7 +27,7 @@ jobs:
         run: |
           cd ${{secrets.CLIENT}}
           npm install
-          VUE_APP_BASE_URL=${{secrets.BASE_URL}} VUE_APP_IMG_URL=${{secrets.IMG_URL}} npm run build:gh-pages
+          VITE_APP_BASE_URL=${{secrets.BASE_URL}} VITE_APP_IMG_URL=${{secrets.IMG_URL}} npm run build:gh-pages
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
