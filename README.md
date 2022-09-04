@@ -149,11 +149,11 @@ npm run dev
 
 - [x] Monorepo（支持更多客户端/服务器共存）
 - [ ] 加入 前端框架
+  - [x] Vue2
   - [x] Vue3
   - [ ] React
 - [ ] 加入 Node.js 框架
   - [ ]  NestJS
-  - [ ]  Hapi.js
   - [ ]  Midway.js
 - [ ] 加入 ORM 框架
   - [ ] prisma
