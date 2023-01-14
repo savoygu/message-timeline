@@ -48,16 +48,16 @@ npm run dev
 
 客户端地址：
 
-  - http://localhost:8080
+- http://localhost:8080
 
 管理端地址：
 
-  - http://localhost:5000（开发）
-  - http://localhost:3000（生产）
+- http://localhost:5000（开发）
+- http://localhost:3000（生产）
 
 接口地址：
 
-  - http://localhost:3000/api/v1
+- http://localhost:3000/api/v1
 
 ### 技术栈
 
@@ -71,7 +71,7 @@ npm run dev
 - [vue-router](https://v3.router.vuejs.org/zh/installation.html)（Vue.js 官方路由）
 - [axios](https://axios-http.com/docs/intro)（基于 Promise 的 HTTP 客户端）
 - [postcss](https://postcss.org/)（使用 JS 插件转换样式的工具）
-- [postcss-salad](https://github.com/ElemeFE/postcss-salad)（能够帮助你写出更加简洁、优雅的CSS的样式解决方案）
+- [postcss-salad](https://github.com/ElemeFE/postcss-salad)（能够帮助你写出更加简洁、优雅的 CSS 的样式解决方案）
 
 ##### Vue3 技术栈
 
@@ -83,7 +83,7 @@ npm run dev
 - [sass](https://postcss.org/)（CSS 预处理器）
 - [sass-bem](https://github.com/zgabievi/sass-bem)（基于 sass 来编写 BEM 风格样式的包）
 - [postcss](https://postcss.org/)（使用 JS 插件转换样式的工具）
-- [postcss-utility](https://ismamz.github.io/postcss-utilities/)（postcss插件，拥有最常用的mixin、快捷方式和辅助函数）
+- [postcss-utility](https://ismamz.github.io/postcss-utilities/)（postcss 插件，拥有最常用的 mixin、快捷方式和辅助函数）
 - [vite](https://cn.vitejs.dev/)（下一代前端开发与构建工具）
 
 #### 服务端
@@ -117,6 +117,7 @@ npm run dev
 > 即提供接口服务，又提供管理功能
 
 - 管理端
+
   - 留言管理
     - 留言列表
     - 回复留言
@@ -139,7 +140,7 @@ npm run dev
 
 客户端部署在 [netlify](https://app.netlify.com/)，可以通过 [http://mt.gusaifei.com](http://mt.gusaifei.com) 来访问
 
-服务器部署在 [heroku](https://www.heroku.com/home)，暂不提供访问地址:)
+服务器部署在 [render](https://dashboard.render.com/)，暂不提供访问地址:)
 
 数据库部署在 [Mongodb Atlas](https://cloud.mongodb.com/)
 
@@ -153,8 +154,8 @@ npm run dev
   - [x] Vue3
   - [ ] React
 - [ ] 加入 Node.js 框架
-  - [ ]  NestJS
-  - [ ]  Midway.js
+  - [ ] NestJS
+  - [ ] Midway.js
 - [ ] 加入 ORM 框架
   - [ ] prisma
   - [ ] mikro-orm
