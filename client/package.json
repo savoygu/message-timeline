@@ -5,7 +5,7 @@
   "author": "savoygu",
   "private": true,
   "scripts": {
-    "predev": "cnpm install",
+    "predev": "npm install",
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",

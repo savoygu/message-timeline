@@ -6,11 +6,11 @@
   "private": true,
   "scripts": {
     "predev": "npm install",
-    "dev:client": "npm run dev --prefix client/vue3",
+    "dev:client": "npm run dev --prefix client",
     "dev:server": "npm run dev --prefix server",
     "dev": "npm-run-all -p dev:*",
     "start": "npm run deploy --prefix server",
-    "build:client": "npm run build --prefix client/vue3"
+    "build:client": "npm run build --prefix client"
   },
   "devDependencies": {
     "cnpm": "^8.1.0",
