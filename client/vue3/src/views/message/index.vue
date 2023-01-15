@@ -1,54 +1,70 @@
-
 <script setup lang="ts">
-import { inject, reactive, ref } from 'vue'
-import MtLoading from '../../components/Loading.vue'
-import MtPublish from './Publish.vue'
-import MtTimeline from './Timeline.vue'
+import { inject, onMounted, reactive, ref } from 'vue'
 import MtPagination from './Pagination.vue'
-import { fetch } from '../../http'
-import { timeAgo } from '../../utils/date'
-import emojis from '../../utils/emoji'
-import { MessageItem, Response, ResponseResultWithCount, EmojiItem } from '../../types'
+import MtTimeline from './Timeline.vue'
+import MtPublish from './Publish.vue'
+import MtLoading from '@/components/Loading.vue'
+import { timeAgo } from '@/utils/date'
+import emojis from '@/utils/emoji'
+import type { EmojiItem, MessageItem, Page, Response } from '@/types'
+import { ResponseCode } from '@/types'
+import { useRequest } from '@/hooks/use-request'
+
+interface MessagesPage {
+  list: MessageItem[]
+  totalPage: number
+  totalCount: number
+  currentPage: number
+}
 
 const effect = Math.ceil(Math.random() * 10)
 
-const loading = ref(false)
-const messages = ref<MessageItem[]>([])
-const totalPage = ref(0) // 总页数
-const totalCount = ref(0) // 总条数
-const currentPage = ref(1) // 当前页
+// Reactive
+const messagePage = reactive<MessagesPage>({
+  list: [], // 留言列表
+  totalPage: 0, // 总页数
+  totalCount: 0, // 总条数
+  currentPage: 1, // 当前页码
+})
 const emojisRef = ref<EmojiItem[]>([])
+const loading = ref(false)
 
 const PAGE_SIZE = inject<number>('PAGE_SIZE')
 
+// Lifecycle
+onMounted(() => {
+  fetchMessages()
+})
+
+// Methods
 function handlePublish(message: MessageItem) {
   message.content = replaceEmoji(emojis, message.content)
   message.createTime = timeAgo(message.createTime)
-  messages.value.unshift(message)
-  totalCount.value++
+  messagePage.list.unshift(message)
+  messagePage.totalCount++
 }
 
 function handlePageChange(page: number) {
-  currentPage.value = page
+  messagePage.currentPage = page
   fetchMessages()
 }
 
-fetchMessages()
 async function fetchMessages() {
   loading.value = true
-  if (!emojis.length) {
+  if (!emojis.length)
     await fetchEmojis()
-  }
+
   try {
-    const res = await fetch<Response<ResponseResultWithCount<MessageItem>>>('/messages', {
+    const res = await useRequest<Response<Page<MessageItem>>>('/messages', {
       page_size: PAGE_SIZE,
-      current: currentPage.value
+      current: messagePage.currentPage,
     })
-    if (res?.code === '01') {
+    if (res?.code === ResponseCode.SUCCESS) {
       const { count, rows } = res.result
-      totalCount.value = count
-      messages.value = rows.map(item => {
-        if (!item.content) return item
+      messagePage.totalCount = count
+      messagePage.list = rows.map((item) => {
+        if (!item.content)
+          return item
         item.content = replaceEmoji(emojis, item.content)
         item.createTime = timeAgo(item.createTime)
         if (item.reply) {
@@ -58,20 +74,21 @@ async function fetchMessages() {
         }
         return item
       })
-      totalPage.value = Math.ceil(count / PAGE_SIZE!)
+      messagePage.totalPage = Math.ceil(count / PAGE_SIZE!)
     }
-  } catch (err) {
-    console.log('[get messages]: ', err)
-  } finally {
+  }
+  catch (err) {
+    console.error('[get messages]: ', err)
+  }
+  finally {
     loading.value = false
   }
 }
 
 async function fetchEmojis() {
-  const res = await fetch<Response<ResponseResultWithCount<EmojiItem>>>('/emojis')
-  if (res?.code === '01') {
+  const res = await useRequest<Response<Page<EmojiItem>>>('/emojis')
+  if (res?.code === ResponseCode.SUCCESS)
     emojisRef.value = res.result.rows
-  }
 }
 
 function replaceEmoji(emojis: EmojiItem[], content: string) {
@@ -89,19 +106,20 @@ function getImageUrl(emoji: EmojiItem) {
 
 <template>
   <div class="mt-message">
-    <MtPublish :total-count="totalCount" :emojis="emojis" @publish="handlePublish"></MtPublish>
+    <MtPublish :total-count="messagePage.totalCount" :emojis="emojis" @publish="handlePublish" />
     <template v-if="!loading">
-      <template v-if="messages.length > 0">
-        <MtTimeline :messages="messages" :total-count="totalCount" :current-page="currentPage">
-        </MtTimeline>
+      <template v-if="messagePage.list.length > 0">
+        <MtTimeline :messages="messagePage.list" :total-count="messagePage.totalCount" :current-page="messagePage.currentPage" />
         <div class="mt-message__pagination">
-          <MtPagination :total-page="totalPage" :current-page="currentPage" @change="handlePageChange"></MtPagination>
+          <MtPagination :total-page="messagePage.totalPage" :current-page="messagePage.currentPage" @change="handlePageChange" />
         </div>
       </template>
-      <p v-else class="mt-message__empty">开始你的第一次留言吧！</p>
+      <p v-else class="mt-message__empty">
+        开始你的第一次留言吧！
+      </p>
     </template>
     <div v-else class="mt-message__loading">
-      <MtLoading :type="effect"></MtLoading>
+      <MtLoading :type="effect" />
     </div>
   </div>
 </template>

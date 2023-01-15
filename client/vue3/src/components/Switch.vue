@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
   offText: '关',
   onValue: true,
   offValue: false,
-  disabled: false
+  disabled: false,
 })
 
 const emit = defineEmits<{
@@ -31,13 +31,13 @@ const emit = defineEmits<{
 const checked = ref(props.modelValue)
 
 function handleChange() {
-  emit('update:modelValue', checked ? props.onValue : props.offValue)
+  emit('update:modelValue', checked.value ? props.onValue : props.offValue)
 }
 
 const switchStyle = computed(() => {
   return {
-    color: checked ? props.onTextColor : props.offTextColor,
-    backgroundColor: checked ? props.onBgColor : props.offBgColor
+    color: checked.value ? props.onTextColor : props.offTextColor,
+    backgroundColor: checked.value ? props.onBgColor : props.offBgColor,
   }
 })
 </script>
@@ -48,8 +48,10 @@ const switchStyle = computed(() => {
       <span class="mt-switch__text">
         <slot>{{ labelText }}</slot>
       </span>
-      <input type="checkbox" v-model="checked" :true-value="onValue" :false-value="offValue" @change="handleChange"
-        :disabled="disabled" />
+      <input
+        v-model="checked" type="checkbox" :true-value="onValue" :false-value="offValue" :disabled="disabled"
+        @change="handleChange"
+      >
       <div class="mt-switch__lever" :style="{ backgroundColor: checked ? onLeverBgColor : offLeverBgColor }">
         <span :class="checked ? 'mt-switch__on' : 'mt-switch__off'" :style="switchStyle">
           {{ checked ? onText : offText }}

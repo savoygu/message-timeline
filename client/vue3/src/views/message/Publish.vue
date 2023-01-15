@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import { computed, inject, reactive, ref } from 'vue'
-import MtSwitch from '../../components/Switch.vue'
-import { post } from '../../http'
-import validate, { ValidateType } from '../../utils/validate'
-import { EmojiItem, MessageItem, MessageForm, Response, ResponseCode } from '../../types'
-import createToast from '../../components/toast'
+import { computed, reactive, ref } from 'vue'
+import MtSwitch from '@/components/Switch.vue'
+import validate, { ValidateType } from '@/utils/validate'
+import type { EmojiItem, MessageItem, Response } from '@/types'
+import { ResponseCode } from '@/types'
+import createToast from '@/components/toast'
+import { useRequest } from '@/hooks/use-request'
+
+export interface MessageForm {
+  content: string
+  nickname: string
+  email: string
+  notice: boolean
+}
 
 const props = withDefaults(defineProps<{
   totalCount: number
   emojis: EmojiItem[]
 }>(), {
-  emojis: () => []
+  emojis: () => [],
 })
 
 const emit = defineEmits<{
@@ -18,34 +26,36 @@ const emit = defineEmits<{
 }>()
 
 // inject('imgURL')
-
+// Reactive
 const message: MessageForm = reactive({
   content: '',
   nickname: '',
   email: '',
-  notice: true
+  notice: true,
 })
 
 const open = ref(false)
 const publishing = ref(false)
 const publish = ref(null)
 
+// Computed
 const errorTip = computed(() => {
   return validate(message, {
     field: 'content',
     desc: '内容',
-    validates: [ValidateType.EMPTY, [ValidateType.LENGTH, 100]]
+    validates: [ValidateType.EMPTY, [ValidateType.LENGTH, 100]],
   }) || validate(message, {
     field: 'nickname',
     desc: '个性昵称',
-    validates: [ValidateType.EMPTY, [ValidateType.RANGE, [1, 18]]]
+    validates: [ValidateType.EMPTY, [ValidateType.RANGE, [1, 18]]],
   }) || validate(message, {
     field: 'email',
     desc: '电子邮箱',
-    validates: [ValidateType.EMPTY, [ValidateType.REGEXP, /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/]]
+    validates: [ValidateType.EMPTY, [ValidateType.REGEXP, /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/]],
   }) || ''
 })
 
+// Methods
 async function handlePublishMessage() {
   if (errorTip.value) {
     createToast({ text: errorTip.value, appendTo: publish.value! })
@@ -54,14 +64,20 @@ async function handlePublishMessage() {
 
   try {
     publishing.value = true
-    const res = await post<Response<MessageItem>>('/message', message)
+    const res = await useRequest<Response<MessageItem>>({
+      url: '/message',
+      method: 'POST',
+      params: message,
+    })
     if (res?.code === ResponseCode.SUCCESS) {
       emit('publish', res?.result)
       message.email = message.nickname = message.content = ''
     }
-  } catch (err) {
-    console.log('[publish message]:', err)
-  } finally {
+  }
+  catch (err) {
+    console.error('[publish message]:', err)
+  }
+  finally {
     publishing.value = false
   }
 }
@@ -77,31 +93,37 @@ function getImageUrl(emoji: EmojiItem) {
 </script>
 
 <template>
-  <div class="mt-publish" ref="publish">
+  <div ref="publish" class="mt-publish">
     <div class="mt-publish__header">
-      <h3 class="mt-publish__title">说点什么吧~</h3>
+      <h3 class="mt-publish__title">
+        说点什么吧~
+      </h3>
       <span class="mt-publish__message">共 <strong class="mt-publish_count">{{ totalCount }}</strong> 条留言</span>
       <div class="mt-publish__notice">
-        <MtSwitch off-lever-bg-color="#fdfdfd" on-lever-bg-color="#6bc30d" off-bg-color="#fdfdfd" on-bg-color="#fdfdfd"
-          off-text-color="#6bc30d" on-text-color="#6bc30d" v-model="message.notice">
+        <MtSwitch
+          v-model="message.notice" off-lever-bg-color="#fdfdfd" on-lever-bg-color="#6bc30d" off-bg-color="#fdfdfd"
+          on-bg-color="#fdfdfd" off-text-color="#6bc30d" on-text-color="#6bc30d"
+        >
           回复邮件时通知我
         </MtSwitch>
       </div>
     </div>
     <div class="mt-publish__form">
       <div class="mt-publish__writing">
-        <textarea v-model="message.content" class="mt-publish__textarea" rows="4" placeholder="留点空白给你说~"></textarea>
+        <textarea v-model="message.content" class="mt-publish__textarea" rows="4" placeholder="留点空白给你说~" />
       </div>
       <div class="mt-publish__footer">
         <div class="mt-publish__emoji">
           <div class="mt-dropdown">
-            <div class="mt-dropdown__toggle" :class="{ 'active': open }" @click="open = !open">
-              <i class="mt-dropdown__icon tm-icon-smile"></i>
+            <div class="mt-dropdown__toggle" :class="{ active: open }" @click="open = !open">
+              <i class="mt-dropdown__icon tm-icon-smile" />
             </div>
             <div class="mt-dropdown__body" :class="{ 'is-open': open }">
               <ul class="mt-dropdown__emojis">
-                <li class="mt-dropdown__emoji" v-for="(emoji, index) in emojis" :key="index"
-                  @click="handleEmojiClick(emoji)" :title="emoji.meaning">
+                <li
+                  v-for="(emoji, index) in emojis" :key="index" class="mt-dropdown__emoji"
+                  :title="emoji.meaning" @click="handleEmojiClick(emoji)"
+                >
                   <!-- <img :src="`${imgURL}/emoji/${emoji.expression}`" :alt="emoji.meaning"> -->
                   <img :src="getImageUrl(emoji)" :alt="emoji.meaning">
                 </li>
@@ -111,17 +133,21 @@ function getImageUrl(emoji: EmojiItem) {
         </div>
         <div class="mt-publish__fields">
           <label class="mt-publish__field mo-tipsy--top-left" data-tipsy="必填：怎么称呼您？">
-            <input v-model="message.nickname" name="nickname" type="text" class="mt-publish__control" maxlength="40"
-              placeholder="个性昵称">
+            <input
+              v-model="message.nickname" name="nickname" type="text" class="mt-publish__control" maxlength="40"
+              placeholder="个性昵称"
+            >
           </label>
           <label class="mt-publish__field mo-tipsy--top-left" data-tipsy="必填：用于获取头像和联系您">
-            <input v-model="message.email" name="email" type="text" class="mt-publish__control" maxlength="40"
-              placeholder="电子邮箱">
+            <input
+              v-model="message.email" name="email" type="text" class="mt-publish__control" maxlength="40"
+              placeholder="电子邮箱"
+            >
           </label>
           <label class="mt-publish__field">
             <button class="mt-publish__btn" :class="{ 'is-disabled': !!errorTip }" @click="handlePublishMessage">{{
-                publishing
-                  ? '发布中..' : '发布'
+              publishing
+                ? '发布中..' : '发布'
             }}</button>
           </label>
         </div>

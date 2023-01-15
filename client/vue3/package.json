@@ -8,13 +8,15 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "build:gh-pages": "npm run build -- --mode gh-pages",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --fix src"
   },
   "dependencies": {
     "axios": "^0.27.2",
     "vue": "^3.2.25"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.34.1",
     "@types/node": "^17.0.38",
     "@vitejs/plugin-vue": "^2.3.3",
     "postcss-utilities": "^0.8.4",

@@ -5,7 +5,7 @@ export interface EmojiItem {
 
 export enum ResponseCode {
   SUCCESS = '01',
-  FAILURE = '02'
+  FAILURE = '02',
 }
 
 export interface Response<T> {
@@ -13,12 +13,10 @@ export interface Response<T> {
   result: T
 }
 
-
-export interface ResponseResultWithCount<T> {
-  rows: T[],
+export interface Page<T> {
+  rows: T[]
   count: number
 }
-
 
 export interface Location {
   ip: string
@@ -40,11 +38,4 @@ export interface MessageItem {
     text: string
     time: string
   }
-}
-
-export interface MessageForm {
-  content: string
-  nickname: string
-  email: string
-  notice: boolean
 }

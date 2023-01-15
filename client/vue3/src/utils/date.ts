@@ -1,4 +1,3 @@
-/* eslint-disable no-extend-native */
 export const formatDate = (date: Date, format: string): string => {
   const dateMap = {
     'M+': date.getMonth() + 1,
@@ -36,20 +35,26 @@ export const timeAgo = (time: string) => {
   const diffTime = currentTime - createTime
 
   let ago = ''
-  if (diffTime === 0) {
+  if (diffTime === 0)
     ago = '刚刚'
-  } else if (diffTime < 60) {
-    ago = ~~diffTime + '秒前'
-  } else if (diffTime < 60 * 60) {
-    ago = ~~(diffTime / 60) + '分前'
-  } else if (diffTime < 60 * 60 * 24) {
-    ago = ~~(diffTime / (60 * 60)) + '小时前'
-  } else if (diffTime < 60 * 60 * 24 * 7) {
-    ago = ~~(diffTime / (60 * 60 * 24)) + '天前'
-  } else if (diffTime < 60 * 60 * 24 * 365) {
+
+  else if (diffTime < 60)
+    ago = `${~~diffTime}秒前`
+
+  else if (diffTime < 60 * 60)
+    ago = `${~~(diffTime / 60)}分前`
+
+  else if (diffTime < 60 * 60 * 24)
+    ago = `${~~(diffTime / (60 * 60))}小时前`
+
+  else if (diffTime < 60 * 60 * 24 * 7)
+    ago = `${~~(diffTime / (60 * 60 * 24))}天前`
+
+  else if (diffTime < 60 * 60 * 24 * 365)
     ago = formatDate(new Date(time), 'MM-dd')
-  } else {
+
+  else
     ago = formatDate(new Date(time), 'yyyy-MM-dd')
-  }
+
   return ago
 }

@@ -7,8 +7,10 @@ defineProps<{
 
 <template>
   <transition name="mt-toast">
-    <div class="mt-toast" v-show="show">
-      <div class="mt-toast__text">{{ text }}</div>
+    <div v-show="show" class="mt-toast">
+      <div class="mt-toast__text">
+        {{ text }}
+      </div>
     </div>
   </transition>
 </template>

@@ -1,4 +1,5 @@
-import { App, createApp } from 'vue'
+import type { App } from 'vue'
+import { createApp } from 'vue'
 import Toast from './Toast.vue'
 
 interface ToastProps {
@@ -14,7 +15,7 @@ let mountNode: HTMLElement
 export default function createToast({
   text,
   duration = 2000,
-  appendTo = document.body
+  appendTo = document.body,
 }: ToastProps) {
   if (timer) {
     clearTimeout(timer)
@@ -23,7 +24,7 @@ export default function createToast({
 
   toastInstance = createApp(Toast, {
     text,
-    show: true
+    show: true,
   })
 
   mountNode = document.createElement('div')
@@ -40,7 +41,3 @@ export default function createToast({
     appendTo.removeChild(mountNode)
   }
 }
-
-
-
-

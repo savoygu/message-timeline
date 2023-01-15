@@ -1,30 +1,34 @@
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_URL
 
-export function fetch<T>(url: string, params = {}) {
-  return ajax<T>('get', url, params)
-}
+// 拦截器
+axios.interceptors.request.use((config) => {
+  return config
+}, (error) => {
+  return error
+})
 
-export function post<T>(url: string, data = {}) {
-  return ajax<T>('post', url, data)
-}
+axios.interceptors.response.use((response) => {
+  return response
+}, (error) => {
+  return error
+})
 
-export function ajax<T>(
-  type: 'get' | 'post',
+export function doRequest<T>(
   url: string,
-  data: Record<string, any>
+  options: AxiosRequestConfig = {},
 ) {
-  data = type === 'get' ? { params: data } : data
-  return axios[type]<T>(url, data)
-    .then((res) => {
-      if (res.status === 200) {
-        return res.data
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  return axios({
+    url,
+    method: options.method || 'GET',
+    ...options, // baseURL, headers, params, data, cancelToken, responseType
+  }).then((response: AxiosResponse<T>) => {
+    return response.data
+  }).catch((error: AxiosError) => {
+    return error.response ?? error
+  })
 }
 
 export default axios
