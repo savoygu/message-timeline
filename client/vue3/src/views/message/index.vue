@@ -40,8 +40,18 @@ onMounted(() => {
 function handlePublish(message: MessageItem) {
   message.content = replaceEmoji(emojis, message.content)
   message.createTime = timeAgo(message.createTime)
-  messagePage.list.unshift(message)
   messagePage.totalCount++
+
+  const { currentPage, totalPage: prevTotalPage } = messagePage
+  const nextTotalPage = messagePage.totalPage = Math.ceil(messagePage.totalCount / PAGE_SIZE!)
+  // 当前页码位于最后一页时，并且最后一页已满
+  if (currentPage === prevTotalPage && nextTotalPage > currentPage) {
+    messagePage.currentPage++
+    messagePage.list = [message]
+  }
+  else {
+    messagePage.list.unshift(message)
+  }
 }
 
 function handlePageChange(page: number) {

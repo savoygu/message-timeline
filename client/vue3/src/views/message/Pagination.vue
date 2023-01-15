@@ -21,7 +21,7 @@ const showPrevMoreRef = ref(false)
 const showNextMoreRef = ref(false)
 const pagers = ref<number[]>([])
 
-watch(props, () => {
+watch(() => props, () => {
   const { currentPage, totalPage, pageRange, edgePages } = props
   const pagerCount = pageRange + edgePages * 2
   let showPrevMore = false
@@ -61,6 +61,7 @@ watch(props, () => {
   showNextMoreRef.value = showNextMore
   pagers.value = pages
 }, {
+  immediate: true,
   deep: true,
 })
 const leftPagers = computed(() => {
