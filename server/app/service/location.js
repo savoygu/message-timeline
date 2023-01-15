@@ -29,8 +29,9 @@ module.exports = {
     try {
       const res = await superagent
         .get('https://tool.lu/ip/')
-        .set('User-Agent', 'curl/7.31.1')
-      return res.text.match(/\d+\.\d+\.\d+\.\d+/)[0]
+        .set('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36')
+      const matched = res.text.match(/\d+\.\d+\.\d+\.\d+/)
+      if (matched) return matched[0]
     } catch (err) {
       console.log('[location getIp]: ', err)
     }
