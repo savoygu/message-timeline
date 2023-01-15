@@ -2,6 +2,8 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/caa159e5-26d0-4f97-b7ca-b5b0164b8fd9/deploy-status)](https://app.netlify.com/sites/frolicking-kataifi-7de522/deploys)
 
+备用访问地址：[Github](https://savoygu.github.io/message-timeline/)、[Gitee](https://gusaifei.gitee.io/message-timeline/)
+
 ### 运行环境
 
 #### Node.js 版本
