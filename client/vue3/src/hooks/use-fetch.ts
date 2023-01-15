@@ -28,8 +28,8 @@ export async function useFetch<T>(
   }
   catch (err) {
     if (Array.isArray(dataRef.value))
-      dataRef.value = [] as T
+      dataRef.value = [] as unknown as T
     else if (dataRef.value !== null && typeof dataRef.value === 'object')
-      dataRef.value = {} as T
+      dataRef.value = {} as unknown as T
   }
 }
