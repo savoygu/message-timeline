@@ -6,17 +6,13 @@
 
 ### 运行环境
 
-#### Node.js 版本
+Node.js 所需版本：12 以上
 
-所需版本：12 以上
-
-#### Mongodb 数据库
-
-所需版本：4.x [macOS](https://www.mongodb.com/docs/v4.4/tutorial/install-mongodb-on-os-x/)、[Windows](https://www.mongodb.com/docs/v4.4/tutorial/install-mongodb-on-windows/)（本项目采用的 4.4.14）
+Mongodb 所需版本：4.x [macOS](https://www.mongodb.com/docs/v4.4/tutorial/install-mongodb-on-os-x/)、[Windows](https://www.mongodb.com/docs/v4.4/tutorial/install-mongodb-on-windows/)（本项目采用的 4.4.14）
 
 完成安装后，确保 mongod 服务开启。
 
-#### 邮件回复设置【可选】
+### 邮件回复设置【可选】
 
 > 不设置也能正常启动服务，只不过当你在管理端对留言方回复留言时，无法给留言方发送邮件提醒
 
@@ -50,16 +46,16 @@ npm run dev
 
 客户端地址：
 
-- http://localhost:8080
+- <http://localhost:8080>
 
 管理端地址：
 
-- http://localhost:5000（开发）
-- http://localhost:3000（生产）
+- <http://localhost:5000（开发>）
+- <http://localhost:3000（生产>）
 
 接口地址：
 
-- http://localhost:3000/api/v1
+- <http://localhost:3000/api/v1>
 
 ### 技术栈
 
@@ -112,7 +108,7 @@ npm run dev
 #### 客户端
 
 - 留言功能（支持开启邮件通知）
-- 时间轴
+- 时间轴列表
 
 #### 服务器
 
@@ -140,7 +136,7 @@ npm run dev
 
 ### 项目部署
 
-客户端部署在 [netlify](https://app.netlify.com/)，可以通过 [http://mt.gusaifei.com](http://mt.gusaifei.com) 来访问
+客户端部署在 [netlify](https://app.netlify.com/)，可以通过 [http://timeline.gusaifei.com](http://timeline.gusaifei.com) 来访问
 
 服务器部署在 [render](https://dashboard.render.com/)，暂不提供访问地址:)
 
@@ -156,8 +152,6 @@ npm run dev
   - [x] Vue3
   - [ ] React
 - [ ] 加入 Node.js 框架
+  - [x] Koa
   - [ ] NestJS
   - [ ] Midway.js
-- [ ] 加入 ORM 框架
-  - [ ] prisma
-  - [ ] mikro-orm
