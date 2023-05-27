@@ -29,7 +29,7 @@ module.exports = {
 
       const ip = await getIp()
       console.log('ip：', ip)
-      const location = await getLocationInfo(ip)
+      const location = (await getLocationInfo(ip)) ?? {}
       console.log('location：', location)
 
       let avatar = gravatar.url(email, { s: '100' })
