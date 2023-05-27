@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 
-const props = withDefaults(defineProps<{
+interface Props {
   modelValue: boolean
   onText?: string // 开关文本
   offText?: string
@@ -15,7 +15,9 @@ const props = withDefaults(defineProps<{
   offValue?: boolean
   disabled?: boolean
   labelText?: string
-}>(), {
+}
+
+const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
   onText: '开',
   offText: '关',

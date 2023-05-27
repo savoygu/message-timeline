@@ -26,7 +26,7 @@ export const validator: Record<ValidateType, ValidateFn> = {
       return `${desc}不能为空`
   },
   [ValidateType.LENGTH]: (val, desc, length) => {
-    if (val.length > length!)
+    if (typeof length === 'number' && val.length > length)
       return `${desc}长度不能超过${length}`
   },
   [ValidateType.RANGE]: (val, desc, range) => {
