@@ -8,7 +8,7 @@ import { timeAgo } from '@/utils/date'
 import emojis from '@/utils/emoji'
 import type { EmojiItem, MessageItem, Page, Response } from '@/types'
 import { ResponseCode } from '@/types'
-import { useRequest } from '@/hooks/use-request'
+import { useRequest } from '@/composables/use-request'
 
 interface MessagesPage {
   list: MessageItem[]

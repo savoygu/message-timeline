@@ -5,7 +5,7 @@ import validate, { ValidateType } from '@/utils/validate'
 import type { EmojiItem, MessageItem, Response } from '@/types'
 import { ResponseCode } from '@/types'
 import createToast from '@/components/toast'
-import { useRequest } from '@/hooks/use-request'
+import { useRequest } from '@/composables/use-request'
 
 export interface MessageForm {
   content: string

@@ -8,7 +8,7 @@ import utilities from 'postcss-utilities'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
-    base: env.NODE_ENV === 'production' && mode === 'gh-pages' ? '/message-timeline/' : '/',
+    base: (env.NODE_ENV === 'production' && mode === 'gh-pages') ? '/message-timeline/' : '/',
     css: {
       preprocessorOptions: {
         scss: {
