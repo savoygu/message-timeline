@@ -26,7 +26,13 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, 'src'),
       },
     },
-    plugins: [vue()],
+    plugins: [
+      vue({
+        script: {
+          defineModel: true,
+        },
+      }),
+    ],
     server: {
       port: 8080,
     },
