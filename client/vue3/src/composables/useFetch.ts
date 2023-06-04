@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { useRequest } from './use-request'
+import { useRequest } from './useRequest'
 import type { Response } from '@/types'
 
 interface FetchOptions {
