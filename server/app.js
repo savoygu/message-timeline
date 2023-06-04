@@ -1,7 +1,7 @@
 const path = require('path')
 const Koa = require('koa')
 const cors = require('@koa/cors') // 跨域处理
-const kodBody = require('koa-body') // 传参获取
+const { koaBody } = require('koa-body') // 传参获取
 const compress = require('koa-compress') // 传输压缩
 const Pug = require('koa-pug') // 视图资源
 const serve = require('koa-static') // 静态资源
@@ -40,7 +40,7 @@ const pug = new Pug({
 })
 
 app.use(serve(path.join(__dirname, '/public')))
-app.use(kodBody())
+app.use(koaBody())
 app.use(compress())
 app.use(cors())
 

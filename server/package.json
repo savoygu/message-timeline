@@ -4,7 +4,7 @@
   "description": "留言时间轴服务端",
   "main": "app.js",
   "scripts": {
-    "predev": "cnpm install && bower install",
+    "predev": "npm install && bower install",
     "dev": "cross-env NODE_ENV=development gulp serve",
     "deploy": "npm install && bower install && cross-env NODE_ENV=heroku node app.js",
     "lint": "eslint --ext .js ./"
@@ -12,20 +12,20 @@
   "author": "savoygu",
   "license": "MIT",
   "dependencies": {
-    "@koa/cors": "^3.3.0",
-    "@koa/router": "^10.1.1",
+    "@koa/cors": "^4.0.0",
+    "@koa/router": "^12.0.0",
     "bcryptjs": "^2.4.3",
     "bent": "^7.3.12",
     "bower": "^1.8.14",
     "cross-env": "^7.0.3",
-    "dayjs": "^1.11.2",
-    "form-urlencoded": "^6.0.6",
+    "dayjs": "^1.11.8",
+    "form-urlencoded": "^6.1.0",
     "gravatar": "^1.8.2",
-    "koa": "^2.13.4",
-    "koa-body": "^5.0.0",
-    "koa-compress": "^5.1.0",
-    "koa-pug": "^5.0.0",
-    "koa-session": "^6.2.0",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
+    "koa-compress": "^5.1.1",
+    "koa-pug": "^5.1.0",
+    "koa-session": "^6.4.0",
     "koa-static": "^5.0.0",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
@@ -33,18 +33,18 @@
     "nodemailer": "^6.7.5",
     "nodemailer-smtp-transport": "^2.7.4",
     "pug": "^3.0.2",
-    "superagent": "^6.1.0"
+    "superagent": "^8.0.9"
   },
   "devDependencies": {
-    "browser-sync": "^2.27.9",
-    "eslint": "^8.15.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.0",
+    "browser-sync": "^2.29.3",
+    "eslint": "^8.42.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-promise": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-nodemon": "^2.5.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.22"
   }
 }
