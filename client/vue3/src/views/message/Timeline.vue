@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { inject, nextTick, onBeforeMount, onBeforeUnmount, ref, watch, watchEffect } from 'vue'
+import { inject, nextTick, onBeforeMount, onBeforeUnmount, ref, watchEffect } from 'vue'
 import { addClass, off, on, removeClass } from '@/utils/dom'
 import type { MessageItem } from '@/types'
 

@@ -1,4 +1,4 @@
-export const formatDate = (date: Date, format: string): string => {
+export function formatDate(date: Date, format: string): string {
   const dateMap = {
     'M+': date.getMonth() + 1,
     'd+': date.getDate(),
@@ -28,7 +28,7 @@ export const formatDate = (date: Date, format: string): string => {
  * @param  {[type]} time [description]
  * @return {[type]}      [description]
  */
-export const timeAgo = (time: string) => {
+export function timeAgo(time: string) {
   // 获取当前时间戳
   const createTime = ~~(new Date(time).getTime() / 1000)
   const currentTime = ~~(new Date().getTime() / 1000)

@@ -8,7 +8,7 @@ import { timeAgo } from '@/utils/date'
 import emojis from '@/utils/emoji'
 import type { EmojiItem, MessageItem, Page, Response } from '@/types'
 import { ResponseCode } from '@/types'
-import { useRequest } from '@/composables/use-request'
+import { useRequest } from '@/composables/useRequest'
 
 interface MessagesPage {
   list: MessageItem[]
@@ -102,7 +102,7 @@ async function fetchEmojis() {
 }
 
 function replaceEmoji(emojis: EmojiItem[], content: string) {
-  return content.replace(/\[q:(.{1,3})\]/g, (match, p, offset, string) => {
+  return content.replace(/\[q:(.{1,3})\]/g, (match, p) => {
     const emoji = emojis.find(emoji => emoji.meaning === p)
     // return `<img src=${this.imgURL + '/emoji/' + expression} title=${p} alt=${p}>`
     return `<img src="${getImageUrl(emoji!)}" title=${p} alt=${p}>`

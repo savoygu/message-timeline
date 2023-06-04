@@ -40,10 +40,8 @@ export const validator: Record<ValidateType, ValidateFn> = {
   },
 }
 
-const validate = <T>(
-  form: Record<keyof T, any>,
-  { field, desc, validates }: ValidateParams<T>,
-) => {
+function validate<T>(form: Record<keyof T, any>,
+  { field, desc, validates }: ValidateParams<T>) {
   let invalid: boolean | string | undefined = false
   const val = form[field]
   for (const validate of validates) {

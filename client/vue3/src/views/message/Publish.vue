@@ -5,7 +5,7 @@ import validate, { ValidateType } from '@/utils/validate'
 import type { EmojiItem, MessageItem, Response } from '@/types'
 import { ResponseCode } from '@/types'
 import createToast from '@/components/toast'
-import { useRequest } from '@/composables/use-request'
+import { useRequest } from '@/composables/useRequest'
 
 export interface MessageForm {
   content: string
@@ -14,7 +14,7 @@ export interface MessageForm {
   notice: boolean
 }
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   totalCount: number
   emojis: EmojiItem[]
 }>(), {
