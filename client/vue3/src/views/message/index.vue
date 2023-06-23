@@ -4,7 +4,7 @@ import { inject, onMounted, reactive, ref } from 'vue'
 import MtLoading from '@/components/Loading.vue'
 import MtPagination from '@/components/Pagination.vue'
 import { useRequest } from '@/composables/useRequest'
-import type { EmojiItem, MessageItem, Page, Response } from '@/types'
+import type { Emoji, Message, Page, Response } from '@/types'
 import { ResponseCode } from '@/types'
 import { timeAgo } from '@/utils/date'
 import emojis from '@/utils/emoji'
@@ -13,7 +13,7 @@ import MtPublish from './Publish.vue'
 import MtTimeline from './Timeline.vue'
 
 interface MessagesPage {
-  list: MessageItem[]
+  list: Message[]
   totalPage: number
   totalCount: number
   currentPage: number
@@ -28,7 +28,7 @@ const messagePage = reactive<MessagesPage>({
   totalCount: 0, // 总条数
   currentPage: 1, // 当前页码
 })
-const emojisRef = ref<EmojiItem[]>([])
+const emojisRef = ref<Emoji[]>([])
 const loading = ref(false)
 
 const PAGE_SIZE = inject<number>('PAGE_SIZE')
@@ -39,7 +39,7 @@ onMounted(() => {
 })
 
 // Methods
-function handlePublish(message: MessageItem) {
+function handlePublish(message: Message) {
   message.content = replaceEmoji(emojis, message.content)
   message.createTime = timeAgo(message.createTime)
   messagePage.totalCount++
@@ -67,7 +67,7 @@ async function fetchMessages() {
     await fetchEmojis()
 
   try {
-    const res = await useRequest<Response<Page<MessageItem>>>('/messages', {
+    const res = await useRequest<Response<Page<Message>>>('/messages', {
       page_size: PAGE_SIZE,
       current: messagePage.currentPage,
     })
@@ -98,12 +98,12 @@ async function fetchMessages() {
 }
 
 async function fetchEmojis() {
-  const res = await useRequest<Response<Page<EmojiItem>>>('/emojis')
+  const res = await useRequest<Response<Page<Emoji>>>('/emojis')
   if (res?.code === ResponseCode.SUCCESS)
     emojisRef.value = res.result.rows
 }
 
-function replaceEmoji(emojis: EmojiItem[], content: string) {
+function replaceEmoji(emojis: Emoji[], content: string) {
   return content.replace(/\[q:(.{1,3})\]/g, (match, p) => {
     const emoji = emojis.find(emoji => emoji.meaning === p)
     // return `<img src=${this.imgURL + '/emoji/' + expression} title=${p} alt=${p}>`
@@ -111,7 +111,7 @@ function replaceEmoji(emojis: EmojiItem[], content: string) {
   })
 }
 
-function getImageUrl(emoji: EmojiItem) {
+function getImageUrl(emoji: Emoji) {
   return new URL(`/src/assets/emoji/${emoji.expression}`, import.meta.url).href
 }
 </script>

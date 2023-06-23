@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { inject, nextTick, onBeforeMount, onBeforeUnmount, ref, watchEffect } from 'vue'
 
-import type { MessageItem } from '@/types'
+import type { Message } from '@/types'
 import { addClass, off, on, removeClass } from '@/utils/dom'
 
 const props = withDefaults(defineProps<{
-  messages: MessageItem[]
+  messages: Message[]
   totalCount: number
   currentPage: number
 }>(), {

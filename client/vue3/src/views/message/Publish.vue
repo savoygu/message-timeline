@@ -4,19 +4,19 @@ import { computed, reactive, ref } from 'vue'
 import MtSwitch from '@/components/Switch.vue'
 import createToast from '@/components/toast'
 import { useRequest } from '@/composables/useRequest'
-import type { EmojiItem, MessageForm, MessageItem, Response } from '@/types'
+import type { Emoji, Message, MessageForm, Response } from '@/types'
 import { ResponseCode } from '@/types'
 import validate, { ValidateType } from '@/utils/validate'
 
 withDefaults(defineProps<{
   totalCount: number
-  emojis: EmojiItem[]
+  emojis: Emoji[]
 }>(), {
   emojis: () => [],
 })
 
 const emit = defineEmits<{
-  (e: 'publish', message: MessageItem): void
+  (e: 'publish', message: Message): void
 }>()
 
 // inject('imgURL')
@@ -58,7 +58,7 @@ async function handlePublishMessage() {
 
   try {
     publishing.value = true
-    const res = await useRequest<Response<MessageItem>>({
+    const res = await useRequest<Response<Message>>({
       url: '/message',
       method: 'POST',
       params: message,
@@ -76,12 +76,12 @@ async function handlePublishMessage() {
   }
 }
 
-function handleEmojiClick(emoji: EmojiItem) {
+function handleEmojiClick(emoji: Emoji) {
   message.content += `[q:${emoji.meaning}]`
   open.value = false
 }
 
-function getImageUrl(emoji: EmojiItem) {
+function getImageUrl(emoji: Emoji) {
   return new URL(`/src/assets/emoji/${emoji.expression}`, import.meta.url).href
 }
 </script>

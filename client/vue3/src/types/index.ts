@@ -1,4 +1,4 @@
-export interface EmojiItem {
+export interface Emoji {
   meaning: string
   expression: string
 }
@@ -26,7 +26,7 @@ export interface Location {
   district: string
 }
 
-export interface MessageItem {
+export interface Message {
   _id: string
   nickname: string
   content: string
