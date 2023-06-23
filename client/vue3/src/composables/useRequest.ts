@@ -1,5 +1,6 @@
 import type { AxiosRequestConfig, Method } from 'axios'
-import { doRequest } from '@/http'
+
+import { doRequest } from '@/utils/request'
 
 interface UseRequestOptions {
   method: Method | 'DOWNLOAD' | 'download' | 'UPLOAD' | 'upload'

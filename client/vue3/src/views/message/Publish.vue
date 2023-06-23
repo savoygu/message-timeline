@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
+
 import MtSwitch from '@/components/Switch.vue'
-import validate, { ValidateType } from '@/utils/validate'
-import type { EmojiItem, MessageItem, Response } from '@/types'
-import { ResponseCode } from '@/types'
 import createToast from '@/components/toast'
 import { useRequest } from '@/composables/useRequest'
-
-export interface MessageForm {
-  content: string
-  nickname: string
-  email: string
-  notice: boolean
-}
+import type { EmojiItem, MessageForm, MessageItem, Response } from '@/types'
+import { ResponseCode } from '@/types'
+import validate, { ValidateType } from '@/utils/validate'
 
 withDefaults(defineProps<{
   totalCount: number
@@ -27,7 +21,7 @@ const emit = defineEmits<{
 
 // inject('imgURL')
 // Reactive
-const message: MessageForm = reactive({
+const message = reactive<MessageForm>({
   content: '',
   nickname: '',
   email: '',
@@ -157,8 +151,8 @@ function getImageUrl(emoji: EmojiItem) {
 </template>
 
 <style lang="scss">
-@import '../../styles/common/tipsy.scss';
-@import "../../styles/message/publish.scss";
+@import '@/styles/common/tipsy.scss';
+@import "@/styles/message/publish.scss";
 
 @include b(mt-publish) {
 

@@ -174,5 +174,5 @@ function setCurrentPage(pager: 'prev' | 'next' | 'prevMore' | 'nextMore' | numbe
 </template>
 
 <style lang="scss">
-@import "../../styles/message/pagination.scss";
+@import "@/styles/components/pagination.scss";
 </style>

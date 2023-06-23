@@ -1,3 +1,10 @@
 {
-  "extends": "@antfu"
+  "extends": "@antfu",
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/order": "off",
+    "sort-imports": "off"
+  }
 }

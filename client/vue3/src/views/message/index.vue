@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { inject, onMounted, reactive, ref } from 'vue'
-import MtPagination from './Pagination.vue'
-import MtTimeline from './Timeline.vue'
-import MtPublish from './Publish.vue'
+
 import MtLoading from '@/components/Loading.vue'
-import { timeAgo } from '@/utils/date'
-import emojis from '@/utils/emoji'
+import MtPagination from '@/components/Pagination.vue'
+import { useRequest } from '@/composables/useRequest'
 import type { EmojiItem, MessageItem, Page, Response } from '@/types'
 import { ResponseCode } from '@/types'
-import { useRequest } from '@/composables/useRequest'
+import { timeAgo } from '@/utils/date'
+import emojis from '@/utils/emoji'
+
+import MtPublish from './Publish.vue'
+import MtTimeline from './Timeline.vue'
 
 interface MessagesPage {
   list: MessageItem[]
@@ -135,5 +137,5 @@ function getImageUrl(emoji: EmojiItem) {
 </template>
 
 <style lang="scss">
-@import "../../styles/message/message.scss";
+@import "@/styles/message/index.scss";
 </style>

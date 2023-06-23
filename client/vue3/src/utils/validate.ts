@@ -7,7 +7,7 @@ export enum ValidateType {
 }
 
 type Range = [number, number]
-type ValidateData = number | RegExp | [number, number]
+type ValidateData = number | RegExp | Range
 type ValidateItem = ValidateType | [ValidateType, ValidateData]
 interface ValidateParams<T> {
   field: keyof T
@@ -17,7 +17,7 @@ interface ValidateParams<T> {
 type ValidateFn = (
   val: string,
   desc: string,
-  validate?: number | Range | RegExp
+  validate?: ValidateData
 ) => string | undefined
 
 export const validator: Record<ValidateType, ValidateFn> = {

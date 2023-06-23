@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { inject, nextTick, onBeforeMount, onBeforeUnmount, ref, watchEffect } from 'vue'
-import { addClass, off, on, removeClass } from '@/utils/dom'
+
 import type { MessageItem } from '@/types'
+import { addClass, off, on, removeClass } from '@/utils/dom'
 
 const props = withDefaults(defineProps<{
   messages: MessageItem[]
@@ -46,9 +47,9 @@ function waterfall() {
       box.style.position = 'absolute'
       box.style.top = `${minColHeight}px`
       box.style.left = minColIndex % 2 === 1 ? '50%' : '0'
+
       if (minColIndex % 2 === 1)
         addClass(box, 'is-right')
-
       else
         removeClass(box, 'is-right')
 
@@ -114,5 +115,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss">
-@import "../../styles/message/timeline.scss";
+@import "@/styles/message/timeline.scss";
 </style>

@@ -39,3 +39,10 @@ export interface MessageItem {
     time: string
   }
 }
+
+export interface MessageForm {
+  content: string
+  nickname: string
+  email: string
+  notice: boolean
+}

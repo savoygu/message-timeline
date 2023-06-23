@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import { createApp } from 'vue'
+
 import Toast from './Toast.vue'
 
 interface ToastProps {

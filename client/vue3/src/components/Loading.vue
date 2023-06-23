@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { type } = withDefaults(defineProps<{
+withDefaults(defineProps<{
   type?: number
 }>(), {
   type: 1,
@@ -25,5 +25,5 @@ const { type } = withDefaults(defineProps<{
 </template>
 
 <style lang="scss">
-@import "../styles/components/loading.scss";
+@import "@/styles/components/loading.scss";
 </style>
