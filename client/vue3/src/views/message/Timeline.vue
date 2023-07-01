@@ -115,5 +115,5 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss">
-@import "@/styles/message/timeline.scss";
+@import "./styles/timeline.scss";
 </style>

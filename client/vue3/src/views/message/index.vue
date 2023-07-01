@@ -137,5 +137,5 @@ function getImageUrl(emoji: Emoji) {
 </template>
 
 <style lang="scss">
-@import "@/styles/message/index.scss";
+@import "./styles/index.scss";
 </style>

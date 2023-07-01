@@ -151,8 +151,8 @@ function getImageUrl(emoji: Emoji) {
 </template>
 
 <style lang="scss">
-@import '@/styles/common/tipsy.scss';
-@import "@/styles/message/publish.scss";
+@import '@/assets/styles/tipsy.scss';
+@import "./styles/publish.scss";
 
 @include b(mt-publish) {
 
